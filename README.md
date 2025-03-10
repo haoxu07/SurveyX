@@ -34,34 +34,28 @@ We warmly invite you to try it out. Don't miss it! 🔥
 👉 **[Visit SurveyX](https://surveyx.cn/)** 👈
 
 ## 📋 Features
+
 - User-friendly interface
 - Efficient survey management
 - Real-time data analysis
 
 ## 💡 Getting Started
+
 1. Go to [SurveyX](https://surveyx.cn/).
 2. Sign up for an account.
 3. Start creating and managing your surveys effortlessly!
 
 ## 🛠️ Feedback
-Your feedback is valuable to us! If you encounter any issues or have suggestions, please feel free to open an issue or contact us.
-Thank you for your support! ❤️
 
+We value your feedback! For any issues or suggestions, feel free to contact us. Thank you for your support! ❤️ Join our WeChat Angel User Group now! 🚀 Scan the QR code below to help shape the future with us! 💡
 
- 
-#
-<mark>⭐ Star this repo to stay updated and be the first to know about our progress and release announcements!</mark>
-
-<mark>💡 Your support means everything to us as we work to bring this innovative solution to life. Stay tuned for more updates!</mark>
-
-<mark>💡Join Our Angel User Group Now (Wechat Group)! 🚀 Scan the QR Code Below to Shape the Future with Us!</mark>
-
- 
 <div align="center">
   <img src="assets/user_groups_123.jpg" alt="Wechat Group" width="300" />
 </div>
 
 ## ⭐Star History
+
+⭐ Star this repo to stay updated and be the first to know about our progress and release announcements!
 
 [![Star History Chart](https://api.star-history.com/svg?repos=IAAR-Shanghai/SurveyX&type=Timeline)](https://star-history.com/#IAAR-Shanghai/SurveyX&Timeline)
 
@@ -740,12 +734,16 @@ Once your request is submitted, the generated paper will be placed in the **user
  | [Bioorthogonal Reactions and Protein ‘Temporal-Spatial’ Regulation](user_requests/Bioorthogonal_Reactions_and_Protein_‘Temporal-Spatial’_Regulation.pdf) | Bioorthogonal reactions, spatiotemporal regulation of proteins, click chemistry, unnatural amino acids |
  | [A Study on the Impact of TGT Teaching Techniques on Students' Self-Efficacy in International Chinese Classrooms](user_requests/A_Study_on_the_Impact_of_TGT_Teaching_Techniques_on_Students'_Self-Efficacy_in_International_Chinese_Classrooms.pdf) | TGT Teaching Techniques Team Games Tournament, International Chinese Classrooms, Cooperative Learning |
  | [According to the personalized products recommended by MBTI.](user_requests/According_to_the_personalized_products_recommended_by_MBTI..pdf) | Personality-based marketing, MBTI-based personalized products, perceived personalization, self-brand connection |
+ | [the Association Between ADL and Well-Being Among Middle-Aged and Older Adults](user_requests/the_Association_Between_ADL_and_Well-Being_Among_Middle-Aged_and_Older_Adults.pdf) | well-being, middle age, older adult, ADL |
  | [Deadline-aware Distributed Training  workload scheduling in heterogeneous GPU clusters](user_requests/Deadline-aware_Distributed_Training__workload_scheduling_in_heterogeneous_GPU_clusters.pdf) | deadline-aware, Predictability, scheduling |
  | [The Generation of AI Hallucinations and Their Impact on People's AI Trust and AI Attitudes, as Well As the Mechanistic Differences Between Human-Machine Trust and Interpersonal Trust.](user_requests/The_Generation_of_AI_Hallucinations_and_Their_Impact_on_People's_AI_Trust_and_AI_Attitudes,_as_Well_As_the_Mechanistic_Differences_Between_Human-Machine_Trust_and_Interpersonal_Trust..pdf) | AI hallucinations, large language model hallucinations, large language model, AI trust |
  | [Consumption decision fatigue detection and intelligent optimisation under information overload conditions](user_requests/Consumption_decision_fatigue_detection_and_intelligent_optimisation_under_information_overload_conditions.pdf) | decision fatigue, information overload, AI assistant |
+ | [The Governance of Double Aging Driven by Socio - Spatial Policies: Transnational Experiences and Chinese Paths](user_requests/The_Governance_of_Double_Aging_Driven_by_Socio_-_Spatial_Policies__Transnational_Experiences_and_Chinese_Paths.pdf) | Double Aging Governance, Socio - Spatial Policies, Intergenerational Equity |
  | [Regulation of oxidative stress and autophagy on lipid metabolism: a comprehensive perspective on nonalcoholic fatty liver disease and NAFLD-associated liver cancer](user_requests/Regulation_of_oxidative_stress_and_autophagy_on_lipid_metabolism__a_comprehensive_perspective_on_nonalcoholic_fatty_liver_disease_and_NAFLD-associated_liver_cancer.pdf) | oxidative stress, lipid metabolism, crosstalk, nonalcoholic fatty liver disease |
  | [From Trends to Solutions: A Comparative Analysis of Gender Inequality in STEM Education in China and the UK](user_requests/From_Trends_to_Solutions__A_Comparative_Analysis_of_Gender_Inequality_in_STEM_Education_in_China_and_the_UK.pdf) | Gender equity, STEM education, Policy making |
  | [Generative AI for Visual Story Telling](user_requests/Generative_AI_for_Visual_Story_Telling.pdf) | generative AI, generative visual intelligence, visual story telling |
+ | [National Identity-Institutional Identity-Cultural Identity: Nation Construction of Rwanda Based on the Theory of State Social Relations and Social Exchange](user_requests/National_Identity-Institutional_Identity-Cultural_Identity__Nation_Construction_of_Rwanda_Based_on_the_Theory_of_State_Social_Relations_and_Social_Exchange.pdf) | Rwandan Patriotic Front, nation-building, Social exchange theory, State-social relations |
+ | [The Janus Face of Macrophages: Their Impact on Metabolic Dysregulation in Cancer-Associated Sarcopenia](user_requests/The_Janus_Face_of_Macrophages__Their_Impact_on_Metabolic_Dysregulation_in_Cancer-Associated_Sarcopenia.pdf) | macrophages, cancer-associated cachexia, sarcopenia, skeletal muscle |
  | [TikTok Aesthetics and the Globalization of Local Visual Culture](user_requests/TikTok_Aesthetics_and_the_Globalization_of_Local_Visual_Culture.pdf) | Short-form video, participatory culture, algorithmic curation, meme aesthetics |
 
 ## 📃Citing SurveyX
