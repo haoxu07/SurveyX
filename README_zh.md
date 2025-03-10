@@ -28,19 +28,20 @@
 
 ## 📋 Features
 
-- User-friendly interface
-- Efficient survey management
-- Real-time data analysis
+- 用户友好的界面
+- 高效的调查管理
+- 实时数据分析
 
 ## 💡 Getting Started
 
-1. Go to [SurveyX](https://surveyx.cn/).
-2. Sign up for an account.
-3. Start creating and managing your surveys effortlessly!
+1. 访问 [SurveyX](https://surveyx.cn/).
+2. 注册一个账户.
+3. 开始轻松创建和管理您的综述论文！
+
 
 ## 🛠️ Feedback
 
-We value your feedback! For any issues or suggestions, feel free to contact us. Thank you for your support! ❤️ Join our WeChat Angel User Group now! 🚀 Scan the QR code below to help shape the future with us! 💡
+我们重视您的反馈！如有任何问题或建议，请随时联系我们。感谢您的支持！❤️ 立即加入我们的微信天使用户群！🚀 扫描下方二维码，与我们一起塑造未来！💡
 
 <div align="center">
   <img src="assets/user_groups_123.jpg" alt="Wechat Group" width="300" />
