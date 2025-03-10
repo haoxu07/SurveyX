@@ -31,7 +31,10 @@
 After a period of intense development, the first user interface version of **SurveyX** is now live! 🎉  
 We warmly invite you to try it out. Don't miss it! 🔥  
 
-👉 **[Visit SurveyX](https://surveyx.cn/)** 👈
+<div style="text-align: center;">
+  👉 <strong><a href="https://surveyx.cn/">Visit SurveyX</a></strong> 👈
+</div>
+
 
 ## 📋 Features
 
@@ -744,6 +747,7 @@ Once your request is submitted, the generated paper will be placed in the **user
  | [Generative AI for Visual Story Telling](user_requests/Generative_AI_for_Visual_Story_Telling.pdf) | generative AI, generative visual intelligence, visual story telling |
  | [National Identity-Institutional Identity-Cultural Identity: Nation Construction of Rwanda Based on the Theory of State Social Relations and Social Exchange](user_requests/National_Identity-Institutional_Identity-Cultural_Identity__Nation_Construction_of_Rwanda_Based_on_the_Theory_of_State_Social_Relations_and_Social_Exchange.pdf) | Rwandan Patriotic Front, nation-building, Social exchange theory, State-social relations |
  | [The Janus Face of Macrophages: Their Impact on Metabolic Dysregulation in Cancer-Associated Sarcopenia](user_requests/The_Janus_Face_of_Macrophages__Their_Impact_on_Metabolic_Dysregulation_in_Cancer-Associated_Sarcopenia.pdf) | macrophages, cancer-associated cachexia, sarcopenia, skeletal muscle |
+ | [Mamba Architecture-Based Ultrasound Dual-Modality Video Analysis for Tumor Diagnosis: Multimodal Fusion and TIC Curve Feature Study](user_requests/Mamba_Architecture-Based_Ultrasound_Dual-Modality_Video_Analysis_for_Tumor_Diagnosis__Multimodal_Fusion_and_TIC_Curve_Feature_Study.pdf) | Ultrasound dual-modality video, Mamba architecture, TIC curve analysis, Multimodal feature fusion |
  | [TikTok Aesthetics and the Globalization of Local Visual Culture](user_requests/TikTok_Aesthetics_and_the_Globalization_of_Local_Visual_Culture.pdf) | Short-form video, participatory culture, algorithmic curation, meme aesthetics |
 
 ## 📃Citing SurveyX
