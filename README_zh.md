@@ -19,16 +19,31 @@
   </a>
 </p>
 
-<mark><strong>🚀 我们正在积极开发具有简洁图形界面的全功能产品！</strong></mark>
-
-<mark>⭐ 点赞此仓库以获取最新进展和发布通知！</mark>
-
-<mark>💡 您的支持对我们至关重要，我们十分希望您能够向我们提出反馈建议！</mark>
-
-<mark>💡立即加入我们的天使用户组（微信群）！ 🚀 扫描下方二维码，与我们一起塑造未来！</mark>
+经过一段时间的紧张开发，SurveyX 的第一个用户界面版本现已上线！🎉
+我们热情邀请您试用。不要错过！🔥
 
 <div align="center">
-  <img src="assets/user_groups_123.jpg" alt="Wechat Group" width="1200" />
+  👉 <strong><a href="https://surveyx.cn/">Visit SurveyX</a></strong> 👈
+</div>
+
+## 📋 Features
+
+- User-friendly interface
+- Efficient survey management
+- Real-time data analysis
+
+## 💡 Getting Started
+
+1. Go to [SurveyX](https://surveyx.cn/).
+2. Sign up for an account.
+3. Start creating and managing your surveys effortlessly!
+
+## 🛠️ Feedback
+
+We value your feedback! For any issues or suggestions, feel free to contact us. Thank you for your support! ❤️ Join our WeChat Angel User Group now! 🚀 Scan the QR code below to help shape the future with us! 💡
+
+<div align="center">
+  <img src="assets/user_groups_123.jpg" alt="Wechat Group" width="300" />
 </div>
 
 ## ⭐ Star History
