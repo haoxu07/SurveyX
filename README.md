@@ -31,6 +31,7 @@
 After a period of intense development, the first user interface version of **SurveyX** is now live! 🎉  
 We warmly invite you to try it out. Don't miss it! 🔥  
 
+If you find our work helpful, don't forget to give us a star! ⭐️
 <div align="center">
   👉 <strong><a href="https://surveyx.cn/">Visit SurveyX</a></strong> 👈
 </div>
