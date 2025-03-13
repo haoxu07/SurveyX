@@ -44,7 +44,7 @@ We warmly invite you to try it out. Don't miss it! 🔥
 3. Submit your **topic** and **keywords** (the topic is the theme you wish to generate, and keywords are used for online retrieval) 🔍
 4. Then the magic begins! Sit back and relax while your personalized results are crafted; you'll be notified via email! 📬
 5. We value your voice, if you have any suggestions, feel free to share your thoughts with us. 📝 [问卷星](https://www.wjx.cn/vm/QNAHWs6.aspx)
-[Goole Forms](https://forms.gle/m1tDKEu4ed7mN3dh7) or our [wechat group](assets/user_groups_123.jpg)!
+, [Goole Forms](https://forms.gle/m1tDKEu4ed7mN3dh7) or [our wechat group](assets/user_groups_123.jpg)!
 
 ## 🤔What is SurveyX?
 
