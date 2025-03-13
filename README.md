@@ -2,7 +2,7 @@
 
 <p align="center">
   <i>
-✨Welcome to SurveyX! This GitHub repository serves as a channel for users to submit requests for paper generation based on specific topics or domains.📚
+✨Welcome to SurveyX! An automated academic survey generation engine, enabling you to generate a high-quality academic survey paper and quickly grasp a specific field in just one hour!📚
   </i>
   <br>
   <a href="https://arxiv.org/abs/2502.14776">
@@ -37,19 +37,27 @@ We warmly invite you to try it out. Don't miss it! 🔥
   👉 <strong><a href="https://surveyx.cn/">Visit SurveyX</a></strong> 👈
 </div>
 
+## 🤔What is SurveyX?
 
+![surveyx_frame](assets/SurveyX.png)
+
+**SurveyX** is an advanced academic survey automation system that leverages the power of Large Language Models (LLMs) to generate high-quality, domain-specific academic papers and surveys.🚀
+
+By simply providing a **paper title** and **keywords** for literature retrieval, users can request comprehensive academic papers or surveys tailored to specific topics.
+
+## 📄How to get my own academic survey paper using SurveyX?
+
+1. Visit **[SurveyX](https://www.surveyx.cn)** 🌐
+2. Sign up with your email 📧
+3. Submit your **topic** and **keywords** (the topic is the theme you wish to generate, and keywords are used for online retrieval) 🔍
+4. Then the magic begins! Sit back and relax while your personalized results are crafted; you'll be notified via email! 📬
+5. We value your voice, if you have any suggestions, feel free to share your thoughts with us. 📝
 
 ## 📋 Features
 
 - User-friendly interface
 - Efficient survey management
 - Real-time data analysis
-
-## 💡 Getting Started
-
-1. Go to [SurveyX](https://surveyx.cn/).
-2. Sign up for an account.
-3. Start creating and managing your surveys effortlessly!
 
 ## 🛠️ Feedback
 
@@ -65,39 +73,6 @@ We value your feedback! For any issues or suggestions, feel free to contact us. 
 
 [![Star History Chart](https://api.star-history.com/svg?repos=IAAR-Shanghai/SurveyX&type=Timeline)](https://star-history.com/#IAAR-Shanghai/SurveyX&Timeline)
 
-## 🤔What is SurveyX?
-
-![surveyx_frame](assets/SurveyX.png)
-
-**SurveyX** is an advanced academic survey automation system that leverages the power of Large Language Models (LLMs) to generate high-quality, domain-specific academic papers and surveys.🚀
-
-By simply providing a **paper title** and **keywords** for literature retrieval, users can request comprehensive academic papers or surveys tailored to specific topics.
-
-If you're curious about how SurveyX works or want to understand the underlying technology and methodology, feel free to check out our 📑[website](http://www.surveyx.cn), where we provide an in-depth explanation of the system's architecture, data processing methods, and experimental results.
-
-## 🤔 What’s This Git For?
-
-This GitHub repository is **designed to provide a platform where users can request the generation** of high-quality, domain-specific academic surveys by simply submitting an issue. The main purpose of this repository is to allow users to easily create and receive tailored academic surveys or papers, which are generated using SurveyX📄
-
-By submitting an issue with a paper title and keywords for literature search, users can quickly generate a comprehensive review paper or survey on a specific topic. This process streamlines academic research by automating paper creation, saving users time and effort in compiling research content. 📚💡
-
-## 🖋️How to Request a Custom Paper via Issue
-
-To request a paper, create a new issue with the following details:
-
-- **Paper Title**: Provide the title of the paper you need.
-- **Keywords for Literature Search**: Provide keywords separated by commas that will help retrieve relevant literature and guide the content generation (e.g. "AI in healthcare, climate change impact on agriculture, ethical implications of AI"). We recommend that the number of keywords be limited to **4 ~ 5** for optimal results.
-- **Your email**(optional): Please provide your email address so that we can notify you promptly once the paper is ready.
-
-### 💬Example Issue Submission
-
-> **Title**: Controllable text generation of LLM: A Survey
->
-> **Keywords**: AI, healthcare, ethical implications, technology adoption, AI-driven diagnostics
->
-> **Email**: <xxxxxxxx@SurveyX.cn>
-
-Once your request is submitted, the generated paper will be placed in the **user requests** folder. Please allow 1-2 business days for processing and generation. ⏳
 
 ## 📝Generated Topics
 
