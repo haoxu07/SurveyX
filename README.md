@@ -37,6 +37,14 @@ We warmly invite you to try it out. Don't miss it! 🔥
   👉 <strong><a href="https://surveyx.cn/">Visit SurveyX</a></strong> 👈
 </div>
 
+## 📄How to use SurveyX?
+
+1. Visit **[SurveyX](https://www.surveyx.cn)** 🌐
+2. Sign up with your email 📧
+3. Submit your **topic** and **keywords** (the topic is the theme you wish to generate, and keywords are used for online retrieval) 🔍
+4. Then the magic begins! Sit back and relax while your personalized results are crafted; you'll be notified via email! 📬
+5. We value your voice, if you have any suggestions, feel free to share your thoughts with us. 📝
+
 ## 🤔What is SurveyX?
 
 ![surveyx_frame](assets/SurveyX.png)
@@ -44,14 +52,6 @@ We warmly invite you to try it out. Don't miss it! 🔥
 **SurveyX** is an advanced academic survey automation system that leverages the power of Large Language Models (LLMs) to generate high-quality, domain-specific academic papers and surveys.🚀
 
 By simply providing a **paper title** and **keywords** for literature retrieval, users can request comprehensive academic papers or surveys tailored to specific topics.
-
-## 📄How to get my own academic survey paper using SurveyX?
-
-1. Visit **[SurveyX](https://www.surveyx.cn)** 🌐
-2. Sign up with your email 📧
-3. Submit your **topic** and **keywords** (the topic is the theme you wish to generate, and keywords are used for online retrieval) 🔍
-4. Then the magic begins! Sit back and relax while your personalized results are crafted; you'll be notified via email! 📬
-5. We value your voice, if you have any suggestions, feel free to share your thoughts with us. 📝
 
 ## 📋 Features
 
