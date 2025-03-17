@@ -33,6 +33,7 @@ We warmly invite you to try it out. Don't miss it! 🔥
 
 <div align="center">
     <strong><a>If you find our work helpful, don't forget to give us a star! ⭐️</a></strong>
+     <strong><a>点个Star⭐️，获取更多的生成机会！</a></strong>
     <br>
   👉 <strong><a href="https://surveyx.cn/">Visit SurveyX</a></strong> 👈
 </div>
