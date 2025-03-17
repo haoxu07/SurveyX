@@ -44,7 +44,6 @@
 4. 坐下来放松一下，您的结果正在生成；完成后您将收到邮件通知！📬
 5. 我们重视您的反馈，如果您有任何建议，请随时与我们分享您的想法。📝 [问卷星](https://www.wjx.cn/vm/QNAHWs6.aspx)、[Google Forms](https://forms.gle/m1tDKEu4ed7mN3dh7)或[我们的微信群](assets/user_groups_123.jpg)！
 
-
 ## 🤔 什么是SurveyX？
 
 ![surveyx_frame](assets/SurveyX.png)
