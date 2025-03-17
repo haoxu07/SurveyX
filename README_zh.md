@@ -2,20 +2,29 @@
 
 <p align="center">
   <i>
-✨ 欢迎来到SurveyX！在这个Github中您可以通过提交 issue 的方式定制生成特定领域的学术综述论文。📚
+✨ 欢迎来到SurveyX！一个自动化的学术调查生成引擎，使您能够在短短一个小时内生成高质量的学术综述论文，从而快速了解某一领域！📚
   </i>
   <br>
   <a href="https://arxiv.org/abs/2502.14776">
-      <img src="https://img.shields.io/badge/arXiv-Paper-B31B1B" alt="arxiv paper">
+      <img src="https://img.shields.io/badge/arXiv-Paper-red.svg?logo=arxiv" alt="arxiv paper">
   </a>
   <a href="http://www.surveyx.cn">
-    <img src="https://img.shields.io/badge/SurveyX-Web-blue" alt="surveyx.cn">
+    <img src="https://img.shields.io/badge/SurveyX-Web-blue?style=flat" alt="surveyx.cn">
   </a>
   <a href="https://huggingface.co/papers/2502.14776">
-    <img src="https://img.shields.io/badge/Huggingface-🤗-yellow" alt="huggingface paper">
+    <img src="https://img.shields.io/badge/Huggingface-🤗-yellow?style=flat" alt="huggingface paper">
   </a>
-  <a href="https://discord.gg/stWuP7SY">
-    <img src="https://img.shields.io/badge/channel-Discord-5865f1" alt="discord channel">
+  <a href="https://github.com/IAAR-Shanghai/SurveyX">
+    <img src="https://img.shields.io/github/stars/IAAR-Shanghai/SurveyX?style=flat&logo=github&color=yellow" alt="github stars">
+  </a>
+    <img src="https://img.shields.io/github/last-commit/IAAR-Shanghai/SurveyX?display_timestamp=author&style=flat&color=green" alt="last commit">
+  </a>
+  <br>
+  <a href="https://discord.gg/gyDaySyktW">
+    <img src="https://img.shields.io/discord/1346729313134710817?logo=discord&label=Discord&color=5865f1&style=flat" alt="discord channel">
+  </a>
+  <a href="https://github.com/IAAR-Shanghai/SurveyX/blob/main/assets/user_groups_123.jpg">
+    <img src="https://img.shields.io/badge/Wechat-Group-07c160?style=flat&logo=wechat" alt="Wechat Group">
   </a>
 </p>
 
@@ -23,33 +32,18 @@
 我们热情邀请您试用。不要错过！🔥
 
 <div align="center">
-  👉 <strong><a href="https://surveyx.cn/">Visit SurveyX</a></strong> 👈
+  👉 <strong><a href="https://surveyx.cn/">访问 SurveyX</a></strong> 👈
+  <strong><a>点个Star⭐️，获取更多的生成机会！</a></strong>
 </div>
 
-## 📋 Features
+## 📄如何使用SurveyX？
 
-- 用户友好的界面
-- 高效的调查管理
-- 实时数据分析
+1. 访问 **[SurveyX](https://www.surveyx.cn)** 🌐
+2. 使用您的邮箱注册 📧
+3. 提交您的**主题**和**关键词**（主题是您希望生成的主题，关键词用于在线检索）🔍
+4. 坐下来放松一下，您的结果正在生成；完成后您将收到邮件通知！📬
+5. 我们重视您的反馈，如果您有任何建议，请随时与我们分享您的想法。📝 [问卷星](https://www.wjx.cn/vm/QNAHWs6.aspx)、[Google Forms](https://forms.gle/m1tDKEu4ed7mN3dh7)或[我们的微信群](assets/user_groups_123.jpg)！
 
-## 💡 Getting Started
-
-1. 访问 [SurveyX](https://surveyx.cn/).
-2. 注册一个账户.
-3. 开始轻松创建和管理您的综述论文！
-
-
-## 🛠️ Feedback
-
-我们重视您的反馈！如有任何问题或建议，请随时联系我们。感谢您的支持！❤️ 立即加入我们的微信天使用户群！🚀 扫描下方二维码，与我们一起塑造未来！💡
-
-<div align="center">
-  <img src="assets/user_groups_123.jpg" alt="Wechat Group" width="300" />
-</div>
-
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=IAAR-Shanghai/SurveyX&type=Timeline)](https://star-history.com/#IAAR-Shanghai/SurveyX&Timeline)
 
 ## 🤔 什么是SurveyX？
 
@@ -61,30 +55,9 @@
 
 如果您想了解SurveyX的工作原理或想了解更多关于底层技术和方法，请访问我们的 📑[网站](http://www.surveyx.cn) 以了解更多。
 
-## 🤔 这个Git仓库是干什么的？
+## ⭐ Star History
 
-这个GitHub仓库旨在为用户提供一个平台，通过提交问题来请求生成高质量、领域特定的学术综述。该仓库的主要目的是让用户轻松创建和接收定制的学术综述论文，这些内容由 SurveyX 自动生成。📄
-
-通过提交包含论文标题和关键词的问题，用户可以快速生成关于特定主题的综合综述论文。这个过程通过自动化论文创作简化了学术研究，节省了用户在编译研究内容上的时间和精力。📚💡
-**请注意，我们当前仅支持英文的输入与英文的文献生成，更多语言的支持会在未来更新**
-
-## 🖋️ 如何通过提交问题请求定制论文
-
-要请求一篇论文，请创建一个新的issue并提供以下详细信息：
-
-- **Paper Title**: Provide the title of the paper you need.
-- **Keywords for Literature Search**: Provide keywords separated by commas that will help retrieve relevant literature and guide the content generation (e.g. "AI in healthcare, climate change impact on agriculture, ethical implications of AI"). We recommend that the number of keywords be limited to **4 ~ 5** for optimal results.
-- **Your email**(optional): Please provide your email address so that we can notify you promptly once the paper is ready.
-
-### 💬 issue 的示例提交
-
-> **Title**: Controllable text generation of LLM: A Survey
->
-> **Keywords**: AI, healthcare, ethical implications, technology adoption, AI-driven diagnostics
->
-> **Email**: <xxxxxxxx@SurveyX.cn>
-
-一旦提交请求，生成的论文将被放置在 **user requests** 文件夹中。请允许1-2个工作日进行处理和生成。⏳
+[![Star History Chart](https://api.star-history.com/svg?repos=IAAR-Shanghai/SurveyX&type=Timeline)](https://star-history.com/#IAAR-Shanghai/SurveyX&Timeline)
 
 ## 📝 已生成的主题
 
