@@ -1,0 +1,729 @@
+\section{Introduction} \label{sec:Introduction}
+
+\input{figs/structure_fig}
+\subsection{Concept of Semi-supervised Algorithms} \label{subsec:Concept of Semi-supervised Algorithms}
+
+The foundational idea behind semi-supervised algorithms in machine learning is to strategically leverage both labeled and unlabeled data to enhance learning outcomes, particularly in scenarios where labeled data is scarce or costly to obtain. This approach is crucial for improving learning accuracy and effectiveness, as it allows models to incorporate the vast quantities of available unlabeled data, thereby addressing challenges associated with limited labeled data. This methodology is akin to the principles outlined in \cite{liu2020posteriorratioestimationlatent}, where the focus is on estimating posterior ratios without explicit prior distributions, demonstrating the potential of leveraging both data types for enhanced learning.
+
+
+
+Semi-supervised learning also parallels the strategy used in APSL, which aims to learn parts of a Bayesian network structure efficiently without the need to learn the entire structure, as discussed in \cite{ling2021bayesiannetworkstructurelearning}. This efficient learning process is vital for developing robust models that can adapt to complex real-world applications. Moreover, the CRoP framework, which retains valuable information from generic models while allowing for user-specific fine-tuning, exemplifies the flexibility and adaptability of semi-supervised algorithms in retaining and utilizing diverse data sources \cite{kaur2024cropcontextwiserobuststatic}.
+
+
+
+In the realm of medical imaging, the need for improved vessel segmentation aligns with the foundational principles of semi-supervised learning, which seeks to leverage both labeled and unlabeled data to enhance learning performance \cite{shin2018deepvesselsegmentationlearning}. This approach is further supported by the mathematical foundations of approximation methods in financial computations, where the integration of different data types is essential for improving accuracy \cite{kun2022mathematicalfoundationsregressionmethods}.
+
+
+
+Overall, semi-supervised algorithms represent a significant advancement in machine learning, providing a robust framework for improving learning efficiency and effectiveness by judiciously utilizing both labeled and unlabeled data. This approach is crucial for developing models that can operate effectively in data-constrained environments and adapt to complex real-world applications.
+
+
+
+\subsection{Significance and Motivation} \label{subsec:Significance and Motivation}
+
+The significance of semi-supervised learning lies in its ability to effectively bridge the gap between supervised and unsupervised learning, particularly in scenarios where acquiring labeled data is both costly and labor-intensive. This approach is crucial in addressing the limitations of existing methods, such as those observed in cervical cancer detection, where there is a need to enhance both sensitivity and specificity \cite{tumer1999ensemblesradialbasisfunction}. In resource-constrained environments, the necessity for efficient quantization methods to reduce model size and computational demand further underscores the importance of semi-supervised learning \cite{yin2017quantizationtraininglowbitwidth}.
+
+
+
+The motivation for developing semi-supervised learning methods is multifaceted. For instance, the Posterior Ratio Estimation (PRE) method aims to effectively compare latent distributions through posterior probabilities when prior distributions are unknown, highlighting the need for robust probabilistic frameworks \cite{liu2020posteriorratioestimationlatent}. Similarly, the APSL approach addresses the limitations of existing Bayesian network structure learning algorithms by enhancing computational efficiency and accuracy, thereby motivating the exploration of semi-supervised strategies in complex network structures \cite{ling2021bayesiannetworkstructurelearning}.
+
+
+
+In the domain of human sensing applications, the CRoP framework addresses performance degradation in generic neural network models due to distinct patterns influenced by various contexts, emphasizing the importance of personalization and adaptability in machine learning \cite{kaur2024cropcontextwiserobuststatic}. Furthermore, the Vessel Graph Network (VGN) aims to overcome the limitations of methods that focus solely on local appearances by considering the global structure of vessel shapes, illustrating the motivation to enhance model robustness and generalization capabilities \cite{shin2018deepvesselsegmentationlearning}.
+
+
+
+The development of semi-supervised learning is also driven by the need to address covariate shift in causal testing, as exemplified by the Counterfactual Active Learning (CAL) algorithm, which enhances the reliability of causal influence measures in machine learning classifiers \cite{sen2018supervisingfeatureinfluence}. Additionally, the motivation to improve the reliability of spatial clustering analyses in areal data, as highlighted by benchmark studies, further supports the advancement of semi-supervised techniques in diverse fields such as public health and urban planning \cite{vidanapathirana2022clusterdetectioncapabilitiesaverage}.
+
+
+
+Collectively, these motivations underscore the transformative potential of semi-supervised learning across various domains, offering robust solutions to the challenges posed by limited labeled data and enhancing model performance in complex, real-world scenarios.
+
+
+
+\subsection{Objectives of the Paper} \label{subsec:Objectives of the Paper}
+
+This survey paper aims to provide a comprehensive examination of semi-supervised learning algorithms, highlighting their potential to improve learning accuracy by effectively integrating both labeled and unlabeled data, particularly in the context of recent advancements in long document processing and retrieval techniques that utilize labeled data, as well as the introduction of human-annotated test sets for evaluating long document similarity ranking. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}. A primary objective is to explore the identification of latent groups within simple hypergraphs using the proposed Hypergraph Stochastic Block Model (HSBM), which can reveal underlying structures in complex datasets. This aligns with the broader goal of improving classification accuracy and interpretability in various applications.
+
+
+
+Another objective is to address the challenges in imbalanced malware detection by leveraging semi-supervised learning to develop more effective machine learning-based detectors. This approach aims to enhance detection capabilities in cybersecurity by utilizing both labeled and unlabeled data. Furthermore, this paper aims to enhance the field of numerical simulations by introducing a machine learning methodology that enforces hyperbolicity in moment closure models. This innovative approach not only improves the accuracy and stability of simulations but also ensures long-term stability, as evidenced by the method's performance in numerical tests, where it matched the effectiveness of the original gradient-based machine learning closure for short time simulations while providing distinct eigenvalues that guarantee hyperbolicity. \cite{huang2021machinelearningmomentclosure}. This objective underscores the importance of semi-supervised methods in enhancing the reliability of computational models in scientific research.
+
+
+
+Furthermore, the survey introduces the Paired Open-Ended Trailblazer (POET) algorithm, which generates increasingly complex environments while optimizing agents, paralleling the goals of semi-supervised learning in providing scalable and adaptive learning frameworks. This objective highlights the potential of semi-supervised approaches in facilitating continuous learning and adaptation in dynamic environments.
+
+
+
+The survey introduces the Pre-training with Structure Prompt (PSP) framework, a novel approach that seamlessly integrates structural information during both the pre-training and prompt tuning stages of Graph Neural Networks (GNNs). This unified framework enhances the construction of accurate prototype vectors and enables more effective utilization of pre-trained knowledge, ultimately improving the performance and applicability of GNNs in network analysis. \cite{ge2024psppretrainingstructureprompt}. Additionally, it aims to address the imputation of time-varying edge flows in graphs, proposing a novel approach to estimate missing signals and improve data completeness.
+
+
+
+In the realm of online learning, the paper introduces a private variant of the online Frank-Wolfe algorithm that employs recursive gradients for variance reduction, facilitating effective parameter updates with each incoming data point. This objective emphasizes the importance of privacy-preserving techniques in semi-supervised learning.
+
+
+
+Furthermore, the survey investigates how the top eigenvectors of the Hessian matrix characterize the decision boundaries formed by neural networks, thereby offering valuable insights into the mechanisms of generalization and the robustness of these models. \cite{sabanayagam2023unveilinghessiansconnectiondecision}. It also aims to develop predictive models that maintain high accuracy while being robust to overfitting in high-dimensional datasets.
+
+
+
+Finally, the paper proposes a method for evolving self-supervised neural networks, allowing agents to learn autonomously from their experiences and improving performance without external rewards. The objectives outlined emphasize the transformative potential of semi-supervised learning across diverse domains by leveraging self-supervised pretraining tasks that utilize the contextual relationships of words within sentences, thereby delivering a richer learning signal than traditional supervised methods that rely on predicting a single label. This approach not only addresses the challenges associated with limited labeled data but also significantly enhances model performance in complex, real-world scenarios. \cite{<divstyle=1}
+
+
+
+\subsection{Structure of the Survey} \label{subsec:Structure of the Survey}
+
+This survey is organized to systematically explore the domain of semi-supervised learning algorithms, beginning with an introductory section that outlines the core concept, significance, and motivation behind semi-supervised learning. The introduction also articulates the objectives of the paper, setting the stage for a detailed examination of the topic. Following the introduction, the paper delves into the background and definitions, providing a comprehensive overview of essential concepts such as semi-supervised learning, machine learning, data labeling, and unsupervised learning. This section lays the groundwork for understanding the relationships and distinctions between these concepts.
+
+
+
+The survey provides a comprehensive analysis of various semi-supervised learning algorithms, categorizing them into distinct approaches such as generative and probabilistic models, self-training and co-training methods, graph-based techniques—which are particularly relevant for long-document processing and retrieval—neural network and deep learning strategies, as well as innovative hybrid methods, all of which emphasize the importance of supervision during either the pre-training or fine-tuning phases for effective performance in tasks like text similarity and forecasting. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,ullah2019graphconvolutionalnetworksanalysis}. Each category is explored in terms of its mechanisms, advantages, and limitations.
+
+
+
+The role of data labeling in semi-supervised learning is then examined, highlighting its importance, associated challenges, and strategies for optimizing the use of labeled data. This section also considers the application of data labeling in specific contexts. The survey further contrasts semi-supervised learning with unsupervised learning, discussing fundamental differences, advantages, limitations, and scenarios where semi-supervised approaches are particularly beneficial.
+
+
+
+To demonstrate the practical applications of semi-supervised learning, the paper presents a diverse array of examples and case studies spanning multiple domains, such as medical imaging, where it enhances diagnostic accuracy; vision and image processing, which benefits from improved object recognition; natural language processing, facilitating better understanding of long documents; robotics, contributing to more effective autonomous navigation; finance, where it aids in fraud detection; and graph analysis, enhancing the interpretation of complex data relationships. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}. These examples underscore the real-world impact and challenges of implementing semi-supervised algorithms.
+
+
+
+The survey concludes with a discussion on the current challenges and future directions in the field, such as scalability, algorithmic efficiency, and the integration of unlabeled data. It also identifies domain-specific challenges and opportunities for advancement. This structured approach, akin to the methodical framework outlined in \cite{alabi2019learningprunespeedingrepeated}, ensures a comprehensive exploration of semi-supervised learning, facilitating a deeper understanding of its potential and limitations.The following sections are organized as shown in \autoref{fig:chapter_structure}.
+
+
+
+
+
+
+
+
+\section{Background and Definitions} \label{sec:Background and Definitions}
+
+
+
+\subsection{Definitions of Core Concepts} \label{subsec:Definitions of Core Concepts}
+
+Semi-supervised learning is a machine learning paradigm that strategically utilizes both labeled and unlabeled data to enhance model performance, particularly in scenarios where labeled data is scarce or expensive to acquire \cite{wang2022rethinkingminimalsufficientrepresentation}. This approach bridges the gap between supervised learning, which depends solely on labeled data, and unsupervised learning, which operates without labeled data. Key terms associated with semi-supervised learning include 'self-supervised learning', which generates meaningful representations from data without explicit labels, enhancing models' generalization capabilities \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}. 'Few-shot learning' is another critical concept, referring to the models' ability to learn from minimal examples, crucial in tasks involving both visual and language contexts \cite{ge2024psppretrainingstructureprompt}.
+
+
+
+In the domain of graph-based methods, 'Graph Neural Networks (GNNs)' are pivotal for understanding structural information and class prototypes, essential for tasks such as few-shot learning \cite{ge2024psppretrainingstructureprompt}. Concepts like 'edge flow signals' and 'graph topology' are integral to frameworks such as the MultiL-KRIM, which addresses the imputation of time-varying edge flows in graphs \cite{nguyen2024imputationtimevaryingedgeflows}. 'Dynamic Ensemble Learning' constructs ensembles with dynamically adjusted weights, relevant in multiclass classification scenarios like malware detection \cite{m2023comparativeanalysisimbalancedmalware}.
+
+
+
+In image classification, 'SAR image classification' involves semantic labeling and understanding physical properties \cite{huang2022physicallyexplainablecnnsar}. In protein modeling, 'protein structure pretraining' and '3D geometric pretext task' are key for data-efficient approaches \cite{huang2023dataefficientprotein3dgeometric}. 'Diversity metrics' are vital for evaluations in imbalanced settings, ensuring comprehensive model assessments \cite{pasarkar2024cousinsvendiscorefamily}. In predictive analytics, smartphone sensors are used to detect anomalies in sleep and communication patterns, indicating depressive episodes \cite{jeong2016predictiveanalyticsusingsmartphone}.
+
+
+
+In medical diagnostics, terms such as 'automated detection', 'classification methods', 'acute leukemia', and 'white blood cells (WBCs)' are crucial for understanding disease detection and classification processes \cite{zolfaghari2023surveyautomateddetectionclassification}. The challenge of evaluating translation quality using synthetic data, particularly the differences between forward and back-translation methods, is a key consideration in domain translation \cite{bogoychev2020domaintranslationesenoisesynthetic}.
+
+
+
+Additional key terms include 'vessel segmentation', 'graph convolutional network', and 'convolutional neural network', which are essential for understanding advanced methods in medical imaging \cite{shin2018deepvesselsegmentationlearning}. In high-dimensional data analysis, 'variable selection', 'high-dimensional linear models', and 'collinearity' are pertinent concepts for addressing challenges in semi-supervised learning \cite{williams2018nonpenalizedvariableselectionhighdimensional}. 'Regression methods', 'approximation techniques', and 'computational efficiency' are foundational for understanding mathematical approaches in this field \cite{kun2022mathematicalfoundationsregressionmethods}.
+
+
+
+Understanding these terms is crucial for navigating the complexities of semi-supervised learning, facilitating the development of robust models capable of leveraging both labeled and unlabeled data across diverse applications.
+
+
+
+\subsection{Relationship between Semi-supervised and Unsupervised Learning} \label{subsec:Relationship between Semi-supervised and Unsupervised Learning}
+
+Semi-supervised learning and unsupervised learning are distinct yet interconnected paradigms in machine learning, each offering unique approaches to data analysis and model training. Unsupervised learning focuses on identifying patterns or structures within unlabeled data, often neglecting the response variables essential for predictive tasks \cite{xie2015onlinesupervisedsubspacetracking}. This can lead to limitations in applications where the presence of labeled data, albeit sparse, can significantly enhance model accuracy and relevance. In contrast, semi-supervised learning strategically incorporates both labeled and unlabeled data, thus bridging the gap between the two paradigms and leveraging the strengths of each to improve learning outcomes \cite{alabi2019learningprunespeedingrepeated}.
+
+
+
+The integration of labeled data in semi-supervised learning allows for more informed model training, which can be particularly beneficial in domains where high-quality labels are scarce or costly to obtain, such as in medical diagnostics \cite{zolfaghari2023surveyautomateddetectionclassification}. This approach is instrumental in overcoming the limitations of unsupervised methods that often fail to account for directionality and inherent biases, as highlighted in domain translation studies \cite{bogoychev2020domaintranslationesenoisesynthetic}.
+
+
+
+Moreover, semi-supervised learning can be seen as a natural extension of single-source adaptation algorithms, which face challenges when adapted to multiple sources \cite{zhao2017multiplesourcedomainadaptation}. By utilizing both labeled and unlabeled data, semi-supervised methods can effectively address these challenges, offering a more robust framework for model adaptation across diverse datasets. This is particularly relevant in fields like areal data analysis, where traditional unsupervised methods lack the necessary benchmarks to accurately assess performance \cite{vidanapathirana2022clusterdetectioncapabilitiesaverage}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Semi-supervised Learning Algorithms} \label{sec:Semi-supervised Learning Algorithms}
+
+\input{summary_table}
+
+In the exploration of semi-supervised learning algorithms, a variety of methodologies have emerged that leverage both labeled and unlabeled data to enhance model performance. Table \ref{tab:summary_table} presents a detailed categorization of semi-supervised learning algorithms, outlining key methodologies and their specific applications to illustrate the diverse approaches utilized in leveraging both labeled and unlabeled data for improved model performance. Additionally, Table \ref{tab:comparison_table} provides a comprehensive comparison of various semi-supervised learning methods, detailing their integration strategies, application domains, and unique features to illustrate their effectiveness in leveraging both labeled and unlabeled data. \autoref{fig:tree_figure_Semi-} illustrates the hierarchical categorization of these algorithms, highlighting key methodologies and their applications. The primary categories include generative and probabilistic models, self-training and co-training approaches, graph-based methods, neural network and deep learning approaches, and hybrid and novel approaches. Each category is further divided into specific models and applications, showcasing the diverse techniques utilized in semi-supervised learning to leverage both labeled and unlabeled data for improved model performance. The subsequent subsections will delve into specific categories of these algorithms, beginning with an examination of generative and probabilistic models. These models serve as foundational tools in semi-supervised learning, providing robust frameworks for data integration and analysis.
+
+
+ 
+
+
+
+
+
+
+\subsection{Generative and Probabilistic Models} \label{subsec:Generative and Probabilistic Models}
+
+Generative and probabilistic models are pivotal in the domain of semi-supervised learning, offering robust frameworks for effectively integrating both labeled and unlabeled data to enhance model performance across various applications. As illustrated in \autoref{fig:tiny_tree_figure_0}, the categorization of these models highlights key methodologies such as Finite Mixture of Multidimensional Arrays (FM-MDA), RefineDiff, and Predictive Analytics Using Smartphone Sensors (PASS) for generative models, alongside APSL, HDBC, and Vendi Score for probabilistic models. The FM-MDA excels in clustering data represented as multidimensional arrays, showcasing the potential of generative models in managing complex data structures \cite{tait2020clusteringhigherorderdata}. This aligns with methodologies like RefineDiff, a generative approach utilizing forward diffusion processes to refine protein structure representations, highlighting its utility in enhancing structural models \cite{huang2023dataefficientprotein3dgeometric}.
+
+Probabilistic models, such as those employed in the APSL framework, focus on learning specific structures within Bayesian networks, demonstrating their efficacy in capturing complex dependencies among variables \cite{ling2021bayesiannetworkstructurelearning}. The Hessian-based decision boundary characterization (HDBC) method further exemplifies the application of probabilistic models by defining the relationship between the top eigenvectors of the Hessian matrix and the decision boundary of neural networks, providing insights into model robustness and decision-making processes \cite{sabanayagam2023unveilinghessiansconnectiondecision}.
+
+In the realm of predictive analytics, generative models like the PASS method leverage data from accelerometers, gyroscopes, and communication logs to establish baselines of normal behavior, illustrating their application in anomaly detection and behavioral analysis \cite{jeong2016predictiveanalyticsusingsmartphone}. Additionally, the Vendi Score introduces a family of metrics that can allocate sensitivity to rare or common items based on the chosen order q, underscoring the adaptability of probabilistic models in diverse evaluation contexts \cite{pasarkar2024cousinsvendiscorefamily}.
+
+The integration of these generative and probabilistic models in semi-supervised learning underscores their versatility and effectiveness in enhancing model robustness and accuracy across diverse applications, from clustering and anomaly detection to decision boundary characterization and structural representation. "These models exemplify innovative strategies that effectively utilize both labeled and unlabeled data, particularly in the context of long document processing and retrieval, thereby significantly advancing the field of semi-supervised learning." \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}
+
+\input{figs/tiny_tree_figure_0}
+\subsection{Self-training and Co-training Approaches} \label{subsec:Self-training and Co-training Approaches}
+
+Self-training and co-training are prominent methodologies within semi-supervised learning that enhance model performance by leveraging both labeled and unlabeled data; self-training focuses on improving feature quality by propagating a limited set of annotations to a larger pool of unlabeled instances, while co-training involves training multiple models on different feature sets to iteratively label additional data, thus facilitating the development of techniques for long-text and document-level matching in emerging research fields. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,<divstyle=1}. Self-training involves an iterative process where a model is initially trained on a small set of labeled data and then used to predict labels for the unlabeled data. These predicted labels are subsequently incorporated into the training set, allowing the model to iteratively refine its predictions and improve accuracy. This approach is particularly effective in scenarios where labeled data is scarce, providing a means to augment the training set without additional labeling costs.
+
+
+
+In the context of document similarity ranking, the Self-supervised Document Ranking (SDR) method exemplifies the potential of self-training approaches by sampling sentence pairs from documents to enhance the similarity of intra-sample pairs \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}. This self-supervised method leverages the inherent structure of documents to generate meaningful training data, thereby improving the model's ability to discern subtle differences in document similarity.
+
+
+
+Co-training, on the other hand, involves the use of multiple classifiers, each trained on different views of the data, to collaboratively improve learning outcomes. This method capitalizes on the availability of diverse feature sets, allowing classifiers to exchange information and iteratively refine their predictions. By leveraging the complementary strengths of different views, co-training can achieve higher accuracy and robustness compared to single-view models.
+
+
+
+Both self-training and co-training approaches are instrumental in addressing the limitations of purely supervised or unsupervised methods, offering scalable solutions for improving model performance in data-constrained environments. Revised Sentence: "These methodologies highlight the adaptability of semi-supervised learning in effectively utilizing unlabeled data, enabling the creation of robust models that can be fine-tuned for complex real-world applications, even in scenarios where labeled data is limited." \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}
+
+
+
+\subsection{Graph-based Methods} \label{subsec:Graph-based Methods}
+
+Graph-based methods play a crucial role in semi-supervised learning by leveraging the structural information inherent in graph data to improve model performance and classification accuracy. These methods utilize the relationships and connections between data points, represented as nodes and edges, to infer labels for unlabeled data. A prominent approach within this domain is the use of graph feature maps, which capture the intricate patterns and dependencies within the data.
+
+
+
+The KONG framework exemplifies the potential of graph-based methods in semi-supervised learning. By generating explicit graph feature maps that exploit ordered neighborhoods, KONG enhances classification accuracy through a more nuanced understanding of the data's structure \cite{draief2018kongkernelsorderedneighborhoodgraphs}. This framework effectively captures the hierarchical and spatial relationships between data points, allowing for more accurate label propagation and prediction.
+
+
+
+Graph-based methods are particularly effective in scenarios where data is naturally represented as a graph, such as social networks, biological networks, and sensor networks. These methods can incorporate both local and global information, providing a comprehensive view of the data's underlying structure. By utilizing the connectivity patterns and node features, graph-based approaches can significantly improve the learning process, making them a powerful tool in the semi-supervised learning paradigm.
+
+
+
+Overall, graph-based methods offer a robust framework for integrating labeled and unlabeled data, facilitating the development of models that are both accurate and adaptable to complex data environments. "Their capacity to leverage the intrinsic structure of graph data renders them essential for enhancing semi-supervised learning strategies, particularly in applications like chemical composition analysis and crystal structure analysis." \cite{shinji2024learningattributedgraphletspredictive}
+
+
+
+\subsection{Neural Network and Deep Learning Approaches} \label{subsec:Neural Network and Deep Learning Approaches}
+
+"Neural networks and deep learning methodologies have significantly advanced the field of semi-supervised learning by enabling the effective integration of labeled and unlabeled data, which enhances learning outcomes; this progress is particularly evident in applications such as long-document processing and retrieval, as well as in graph-based semi-supervised learning techniques that improve forecasting processes." \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,ullah2019graphconvolutionalnetworksanalysis,zhao2017multiplesourcedomainadaptation}. These approaches leverage complex architectures and innovative strategies to improve model performance across various domains.
+
+
+
+The PSP framework exemplifies the use of dual-view contrastive learning to align latent semantic spaces of node attributes and graph structure, thereby enhancing few-shot learning capabilities \cite{ge2024psppretrainingstructureprompt}. Such alignment is crucial for tasks requiring the integration of structural and attribute information, which is a common scenario in semi-supervised learning.
+
+
+
+In the context of neural machine translation, the application of shallow RNN and transformer architectures highlights the versatility of neural networks in handling domain translation tasks \cite{bogoychev2020domaintranslationesenoisesynthetic}. These architectures facilitate the integration of labeled and unlabeled data, improving translation quality and model adaptability.
+
+
+
+The Evolving Self-supervised Neural Networks (ESSNN) method integrates evolutionary algorithms with self-supervised learning mechanisms, allowing agents to autonomously adapt and improve their learning processes \cite{le2019evolvingselfsupervisedneuralnetworks}. This approach underscores the potential of neural networks to evolve and optimize their learning strategies without explicit supervision.
+
+
+
+In the realm of image processing, neural networks such as the VGN utilize convolutional neural networks (CNNs) to extract pixelwise features, enhancing vessel segmentation through a semi-supervised approach \cite{shin2018deepvesselsegmentationlearning}. This application demonstrates the efficacy of deep learning in improving feature extraction and segmentation accuracy.
+
+
+
+The LBW-Net, which focuses on optimizing CNNs through weight quantization, exemplifies the application of neural networks in enhancing computational efficiency and model performance in semi-supervised learning contexts \cite{yin2017quantizationtraininglowbitwidth}. This optimization is particularly beneficial in resource-constrained environments where model size and computational demand are critical considerations.
+
+
+
+Moreover, the analysis of decision boundaries through the alignment of training gradients with the top Hessian eigenvectors provides insights into the complexity of neural network models, linking the shape of the loss landscape to model behavior \cite{sabanayagam2023unveilinghessiansconnectiondecision}. This analysis is instrumental in understanding and improving model robustness and generalization capabilities.
+
+
+
+The integration of neural networks within a nested Monte Carlo simulation framework, as evaluated in various regression methods, further highlights their applicability in semi-supervised learning \cite{kun2022mathematicalfoundationsregressionmethods}. This approach facilitates the exploration of complex data structures and enhances predictive accuracy.
+
+
+
+The integration of neural network and deep learning methodologies in semi-supervised learning demonstrates their transformative potential by providing robust solutions for effectively combining labeled and unlabeled data. This approach not only enhances model performance across a wide range of applications, such as image classification, content-based image retrieval, and cross-media retrieval, but also leverages the rich feature extraction capabilities of various neural network architectures, particularly through the use of pretrained networks. This synergy allows for improved results in diverse fields, highlighting the effectiveness of deep learning in harnessing vast datasets with varying levels of annotation. \cite{zhao2017multiplesourcedomainadaptation,pihlgren2024systematicperformanceanalysisdeep}
+
+
+
+\subsection{Hybrid and Novel Approaches} \label{subsec:Hybrid and Novel Approaches}
+
+Hybrid and novel approaches in semi-supervised learning embody the integration of diverse methodologies, leveraging the strengths of various learning paradigms to enhance model adaptability and performance. These approaches often combine traditional techniques with innovative frameworks to address specific challenges inherent in semi-supervised contexts.
+
+
+
+The PGIL method exemplifies a hybrid approach by embedding physical model knowledge into neural networks, facilitating explainable predictions in SAR image classification \cite{huang2022physicallyexplainablecnnsar}. This integration of domain knowledge with machine learning models underscores the potential of hybrid methods in improving interpretability and accuracy.
+
+
+
+Dynamic Ensemble Learning represents another innovative approach, enhancing robustness and accuracy by aggregating predictions from multiple base models trained on different data subsets \cite{ramasubramanian2009teachingresultanalysisusing}. This method capitalizes on the diversity of ensemble components to improve classification performance, illustrating the efficacy of ensemble techniques in semi-supervised learning scenarios.
+
+
+
+The PRE method introduces a novel mechanism by estimating posterior ratios directly from likelihood functions and prior samples, circumventing the need for explicit prior density modeling \cite{liu2020posteriorratioestimationlatent}. This approach highlights the potential of probabilistic frameworks in semi-supervised learning, offering a streamlined process for model training and inference.
+
+
+
+In the realm of privacy-preserving learning, a differentially private online algorithm demonstrates a novel mechanism for variance reduction in non-stationary settings by updating parameters using recursive gradients \cite{han2022privateonlineconvexoptimization}. This approach ensures privacy guarantees while maintaining model adaptability, emphasizing the importance of privacy in semi-supervised learning frameworks.
+
+
+
+The integration of hybrid and novel approaches in semi-supervised learning demonstrates significant promise for enhancing model performance by effectively utilizing both labeled and unlabeled data, as evidenced by recent advancements in long-document processing and retrieval techniques that address the limitations of traditional methods and optimize retrieval performance across various applications. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,jang2024visualdeltageneratorlarge}
+
+\input{comparison_table}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Role of Data Labeling in Semi-supervised Learning} \label{sec:Role of Data Labeling in Semi-supervised Learning}
+
+In the context of semi-supervised learning, data labeling serves as a foundational element that influences the efficacy and accuracy of machine learning models. As we delve into the subsequent subsection, we will explore the significance of data labeling in detail, examining its critical role in enhancing model training and performance across various applications. This discussion will underscore how the quality and methodology of data labeling directly impact the outcomes of semi-supervised learning paradigms, setting the stage for a deeper understanding of its importance. 
+
+
+
+
+
+
+\subsection{Importance of Data Labeling} \label{subsec:Importance of Data Labeling}
+
+Data labeling is a critical component in semi-supervised learning, fundamentally impacting the training and performance of models that utilize both labeled and unlabeled data. The quality of labeled data is essential, as it serves as the foundation for refining model predictions and enhancing the precision of weak labels through probabilistic methods \cite{ling2021bayesiannetworkstructurelearning}. This refinement process is particularly vital in applications requiring detailed structural insights, such as the classification of Synthetic Aperture Radar (SAR) images, where limited labeled data presents significant challenges for deep learning techniques \cite{huang2022physicallyexplainablecnnsar}. 
+
+As illustrated in \autoref{fig:tiny_tree_figure_1}, the critical importance of data labeling spans various applications, techniques, and challenges within semi-supervised learning. The figure highlights specific use cases such as SAR image classification and protein modeling, discusses techniques like weight quantization and the CRoP framework, and addresses challenges in anomaly detection and domain translation. These elements collectively underscore the foundational role of data labeling in enhancing model performance and accuracy across diverse fields.
+
+In the realm of protein modeling, the availability of high-quality labeled data is crucial for generating accurate protein representations, especially when data is scarce \cite{huang2023dataefficientprotein3dgeometric}. Similarly, in automated medical diagnostics, large annotated datasets are indispensable for training models to effectively detect and classify diseases, as exemplified by the need to differentiate between pre-cancerous and normal tissues.
+
+Data labeling also plays a pivotal role in anomaly detection within predictive analytics, where establishing clusters of normal behavior from labeled data is essential for identifying deviations indicative of depressive episodes \cite{jeong2016predictiveanalyticsusingsmartphone}. In domain translation tasks, the meticulous selection and labeling of training data to align with the test domain are crucial for maintaining model accuracy and relevance \cite{bogoychev2020domaintranslationesenoisesynthetic}.
+
+The process of weight quantization in Convolutional Neural Networks (CNNs) further underscores the importance of data labeling, as it enhances model efficiency and performance in semi-supervised learning environments \cite{yin2017quantizationtraininglowbitwidth}. The CRoP framework illustrates how minimal labeled data can be effectively utilized to personalize models, ensuring robust performance across diverse and previously unseen contexts \cite{kaur2024cropcontextwiserobuststatic}.
+
+In ensemble learning, the adaptive nature of methods such as Dynamic Ensemble Learning is contingent upon the performance evaluation of base models using labeled validation data, highlighting the critical role of accurate labeling \cite{pasarkar2024cousinsvendiscorefamily}. Additionally, in the CAL method, data labeling is indispensable as it relies on feedback from a labeling oracle to acquire labels for counterfactual instances, thereby enhancing the reliability of causal influence assessments \cite{sen2018supervisingfeatureinfluence}.
+
+Moreover, the importance of data labeling is emphasized in the training of the VGN, where initial vessel probability maps are generated by a pre-trained CNN, showcasing the foundational role of labeled data in model development \cite{shin2018deepvesselsegmentationlearning}. In spatial clustering, accurate data labeling provides a framework for better decision-making in public health and urban planning \cite{vidanapathirana2022clusterdetectioncapabilitiesaverage}.
+
+These examples collectively highlight the crucial importance of data labeling in semi-supervised learning, as evidenced by Schick and Schütze (2022), who demonstrate that even a small number of labeled training examples (ranging from 10 to 100) can significantly enhance model performance by enabling the effective integration of both labeled and unlabeled data, thereby facilitating superior outcomes across diverse applications \cite{gao2023benefitslabeldescriptiontrainingzeroshot}.
+
+\input{figs/tiny_tree_figure_1}
+\subsection{Challenges in Data Labeling} \label{subsec:Challenges in Data Labeling}
+
+Data labeling in semi-supervised learning presents several challenges that can significantly impact model performance and the reliability of learning outcomes. One prominent issue is the assumption of good cluster-label matching (CLM) in existing benchmarks, which can lead to erroneous conclusions when this assumption does not hold true. This mismatch can result in models failing to accurately capture the underlying data structure, thereby affecting their predictive capabilities \cite{jeon2023classesclustersimprovinglabelbased}.
+
+
+
+In high-dimensional settings, the redundancy among covariates poses another significant challenge. The presence of highly correlated or redundant features can complicate the labeling process, leading to inefficient use of labeled data and potential overfitting. This redundancy can obscure the true relationships between features and labels, making it difficult to identify the most informative features for model training \cite{williams2018nonpenalizedvariableselectionhighdimensional}.
+
+
+
+Moreover, the cost and effort associated with obtaining high-quality labeled data are substantial, particularly in domains where expert knowledge is required for accurate annotation. The challenge of effectively training complex machine learning models is intensified by the necessity for large labeled datasets, as these rich datasets with abundant annotations are crucial for model success (Krizhevsky et al., 2012; Hinton et al., 2012; Russakovsky et al., 2015). However, the collection and annotation of such extensive training data is often prohibitively expensive and time-consuming, leading to a reliance on limited labeled data. This not only increases the risk of model bias but also raises concerns about overfitting, particularly when models are trained on datasets that may not adequately represent the diversity of real-world scenarios. Additionally, the trade-off between using a rich hypothesis class and a limited one can further complicate generalization, as a richer hypothesis class may reduce certain errors at the cost of increased complexity and potential overfitting risks. \cite{wang2022rethinkingminimalsufficientrepresentation,zhao2017multiplesourcedomainadaptation}
+
+
+
+Additionally, the dynamic nature of certain application domains, such as social media or sensor networks, can lead to rapidly changing data distributions. This shift necessitates continuous data labeling efforts to maintain model accuracy over time, further complicating the labeling process.
+
+
+
+These challenges underscore the urgent necessity for innovative strategies in data labeling, particularly in the context of long document processing and retrieval, to optimize the utilization of labeled data. By leveraging small curated datasets to define task-specific labels and tapping into naturally occurring data within extensive corpora, we can enhance model robustness and improve the quality of learning outcomes in semi-supervised learning environments, ultimately addressing the scarcity of certain labeled texts and ensuring more reliable performance. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,shu2017fakenewsdetectionsocial,gao2023benefitslabeldescriptiontrainingzeroshot}
+
+
+
+\subsection{Strategies for Optimizing Labeled Data Usage} \label{subsec:Strategies for Optimizing Labeled Data Usage}
+
+Optimizing the use of labeled data in semi-supervised learning is crucial for enhancing model performance, particularly when labeled data is limited or costly to obtain. One effective strategy is the application of active learning techniques, which prioritize the selection of the most informative data points for labeling. This approach reduces the labeling burden by focusing efforts on samples that are likely to improve model accuracy the most, as demonstrated in various machine learning contexts \cite{sen2018supervisingfeatureinfluence}.
+
+
+
+Another strategy involves the use of transfer learning, where knowledge from related tasks or domains is leveraged to improve performance on the target task, thereby minimizing the need for extensive labeled datasets. This is particularly beneficial in domains with limited labeled data, such as medical diagnostics and anomaly detection .
+
+
+
+Semi-supervised learning can also benefit from self-training methods, where models iteratively refine their predictions by incorporating confidently predicted unlabeled data into the training set. This iterative process allows models to gradually improve their accuracy by effectively utilizing both labeled and unlabeled data, as seen in document similarity ranking and other applications \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}.
+
+
+
+Moreover, the integration of domain-specific knowledge into the learning process can enhance the interpretability and accuracy of models, as exemplified by the PGIL method in SAR image classification \cite{huang2022physicallyexplainablecnnsar}. By embedding domain knowledge into models, semi-supervised learning can achieve more reliable predictions with fewer labeled examples.
+
+
+
+Finally, ensemble learning techniques, such as Dynamic Ensemble Learning, can optimize labeled data usage by aggregating predictions from multiple models, each trained on different subsets of the data. This approach enhances model robustness and accuracy, particularly in imbalanced settings \cite{pasarkar2024cousinsvendiscorefamily}.
+
+
+
+These strategies collectively underscore the potential for optimizing the utilization of labeled data in semi-supervised learning, which combines the strengths of both labeled and unlabeled data to improve retrieval performance. This approach facilitates the development of robust models that can effectively process and retrieve long documents across various applications, addressing the limitations of traditional supervised methods that rely solely on labeled data during pre-training or fine-tuning phases. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,jang2024visualdeltageneratorlarge}
+
+
+
+\subsection{Data Labeling in Specific Contexts} \label{subsec:Data Labeling in Specific Contexts}
+
+Data labeling is applied across various specific contexts, each presenting unique challenges and opportunities for enhancing model performance in semi-supervised learning. In medical diagnostics, for instance, the accurate labeling of medical images is crucial for developing automated systems capable of detecting and classifying diseases such as acute leukemia \cite{zolfaghari2023surveyautomateddetectionclassification}. The process involves annotating white blood cells in microscopic images, which requires expert knowledge and can be labor-intensive, highlighting the need for efficient labeling strategies to improve model training.
+
+
+
+In the field of predictive analytics, data labeling is essential for establishing baselines of normal behavior, particularly in applications involving smartphone sensors. These sensors collect data on sleep and communication patterns, which are then labeled to detect anomalies indicative of depressive episodes \cite{jeong2016predictiveanalyticsusingsmartphone}. The labeling process in this context involves distinguishing between normal and abnormal patterns, enabling models to identify significant deviations that warrant further investigation.
+
+
+
+In the domain of domain translation, particularly in language translation tasks, data labeling plays a pivotal role in aligning training data with the target domain. This involves selecting and annotating data that closely matches the test domain to ensure model accuracy and relevance, as seen in studies comparing forward and back-translation methods \cite{bogoychev2020domaintranslationesenoisesynthetic}. The careful curation of labeled data in this context is critical for maintaining translation quality and minimizing domain shift.
+
+
+
+Additionally, in the realm of image classification, data labeling is applied in the annotation of SAR images for semantic understanding and physical property analysis. The PGIL method exemplifies the integration of labeled data with physical model knowledge to enhance interpretability and accuracy in SAR image classification \cite{huang2022physicallyexplainablecnnsar}. This approach underscores the importance of domain-specific knowledge in the labeling process, facilitating more accurate and explainable predictions.
+
+
+
+In the context of high-dimensional data analysis, the challenge of variable selection is addressed through the careful labeling of data to identify informative features. This process is particularly relevant in settings where collinearity and redundancy among covariates can obscure true relationships, necessitating precise labeling to improve model robustness and interpretability \cite{williams2018nonpenalizedvariableselectionhighdimensional}.
+
+
+
+These examples illustrate the diverse applications of data labeling in specific contexts, highlighting its critical role in enhancing model performance and reliability across various domains.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Comparison with Unsupervised Learning} \label{sec:Comparison with Unsupervised Learning}
+
+This section explores the comparative landscape of semi-supervised learning in relation to unsupervised learning, emphasizing the distinctions that clarify the advancements and applications of semi-supervised techniques. The following subsection outlines the fundamental differences between these approaches, particularly how semi-supervised learning incorporates labeled data to overcome the limitations of unsupervised methods.
+
+
+\subsection{Fundamental Differences} \label{subsec:Fundamental Differences}
+
+The core differences between semi-supervised and unsupervised learning arise from their distinct data utilization strategies. Semi-supervised learning combines labeled and unlabeled data to enhance model performance, particularly in contexts where labeled data is scarce or expensive to obtain. In contrast, unsupervised learning relies exclusively on unlabeled data to discern patterns without guidance from labeled examples. This need for labeled data in semi-supervised learning mirrors the interpretability demands in supervised models for safety assessments \cite{wei2022safetyinterpretablemachinelearning}.
+
+Unsupervised learning often struggles with providing adequate visual information for accurate predictions, as highlighted by the limitations noted in existing benchmarks \cite{deboer2023progressactivityprogressprediction}. Conversely, semi-supervised methods can integrate user input and labeled data to validate and refine extracted information, thereby enhancing prediction reliability, akin to the Smart Data Extractor (SDE) framework \cite{quennelle2023smartdataextractorclinician}. 
+
+Furthermore, the bias towards majority classes in unsupervised learning can skew outcomes, a challenge that semi-supervised learning addresses by improving certainty across all classes, demonstrated by the CGMOS approach \cite{zhang2016cgmoscertaintyguidedminority}. This capability is vital in applications such as malware classification, where class imbalance poses significant challenges \cite{m2023comparativeanalysisimbalancedmalware}.
+
+The limitations of Multiple Kernel Learning (MKL) methods in managing large datasets further underscore the advantages of semi-supervised approaches, which effectively integrate labeled data to enhance scalability and performance \cite{moeller2014geometricalgorithmscalablemultiple}. Additionally, semi-supervised learning adeptly addresses covariate shift, ensuring consistent causal influences across varying data distributions, a limitation of traditional unsupervised methods \cite{sen2018supervisingfeatureinfluence}.
+
+As illustrated in \autoref{fig:tiny_tree_figure_2}, this figure presents the fundamental differences between semi-supervised and unsupervised learning, highlighting key aspects such as data integration, class certainty, scalability, pattern discovery, visual limitations, and class imbalance. This visual representation serves to further clarify the nuanced distinctions between these two learning paradigms, reinforcing the discussion of their respective strengths and weaknesses.
+
+\input{figs/tiny_tree_figure_2}
+\subsection{Advantages of Semi-supervised Learning} \label{subsec:Advantages of Semi-supervised Learning}
+
+Semi-supervised learning presents significant advantages over unsupervised learning by effectively merging labeled and unlabeled data to boost model performance while reducing reliance on extensive labeled datasets. This is particularly pertinent in fields like drug synergy prediction, where SynerGPT showcases the ability to predict drug interactions with minimal labeled data \cite{edwards2023synergptincontextlearningpersonalized}. By leveraging non-shared task-relevant information, semi-supervised learning enhances downstream task performance, underscoring its superiority over unsupervised methods \cite{wang2022rethinkingminimalsufficientrepresentation}.
+
+In medical diagnostics, hybrid models that integrate traditional techniques such as Support Vector Machines (SVM) with deep learning methods like Convolutional Neural Networks (CNN) yield improved accuracy and efficiency for disease detection and classification \cite{zolfaghari2023surveyautomateddetectionclassification}. Similarly, the VGN exemplifies the benefits of semi-supervised learning by jointly learning local appearances and global vessel structures, leading to enhanced segmentation performance in medical imaging \cite{shin2018deepvesselsegmentationlearning}.
+
+The Physically-Guided Interpretable Learning (PGIL) method further illustrates the advantages of semi-supervised learning by improving classification accuracy while maintaining physical consistency in predictions, addressing traditional deep learning limitations in SAR image classification \cite{huang2022physicallyexplainablecnnsar}. In mental health management, semi-supervised learning facilitates continuous patient monitoring through smartphone sensors, enhancing proactive interventions without requiring direct interaction \cite{jeong2016predictiveanalyticsusingsmartphone}.
+
+Overall, semi-supervised learning enhances scalability, reduces annotation costs, and improves classification accuracy by effectively utilizing both labeled and unlabeled data. This strategy allows for stable performance across various domains and tasks, such as topic and sentiment classification. Notably, semi-supervised methods can outperform unsupervised pretraining techniques—which often suffer from noise and slower knowledge acquisition—by leveraging insights from Large Language Models (LLMs) to optimize performance in diverse applications, as evidenced by recent evaluations on datasets like AGNews and the Stanford Sentiment Treebank \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,tang2023mvpmultitasksupervisedpretraining,jang2024visualdeltageneratorlarge,gao2023benefitslabeldescriptiontrainingzeroshot}.
+
+\subsection{Limitations of Unsupervised Learning} \label{subsec:Limitations of Unsupervised Learning}
+
+Despite its capacity to identify patterns within unlabeled data, unsupervised learning encounters several inherent limitations that semi-supervised learning effectively mitigates. A primary challenge is the reliance on unlabeled data, which often results in models that struggle with precise predictions due to the lack of explicit guidance from labeled examples. This limitation is particularly pronounced in medical diagnostics, where the absence of labeled data hampers the development of accurate disease detection models \cite{zolfaghari2023surveyautomateddetectionclassification}.
+
+Moreover, unsupervised learning methods tend to exhibit biases towards majority classes, leading to skewed learning outcomes and diminished model accuracy. This issue is exacerbated in applications like malware detection, where class imbalance is a critical concern \cite{m2023comparativeanalysisimbalancedmalware}. Semi-supervised learning addresses this by incorporating labeled data to enhance model certainty across all classes, improving balance and accuracy.
+
+Another significant limitation of unsupervised learning lies in its difficulty in managing complex data structures that necessitate prior knowledge or domain-specific information for accurate interpretation. This challenge is evident in tasks such as SAR image classification, where integrating physical model knowledge is essential for maintaining prediction consistency and accuracy \cite{huang2022physicallyexplainablecnnsar}.
+
+Additionally, unsupervised learning often struggles with scalability and computational efficiency, especially with large datasets. This challenge is highlighted within the context of MKL methods, where semi-supervised approaches can significantly enhance scalability and performance through the integration of labeled data \cite{moeller2014geometricalgorithmscalablemultiple}.
+
+Furthermore, unsupervised learning is limited in addressing covariate shift and maintaining consistent causal influences across varying data distributions, which can lead to unreliable predictions in dynamic environments. Semi-supervised learning overcomes this limitation by utilizing labeled data to ensure more stable and reliable learning outcomes \cite{sen2018supervisingfeatureinfluence}.
+
+The limitations of unsupervised learning, such as noise incorporation that adversely affects downstream task performance and slows knowledge acquisition, highlight the necessity for semi-supervised approaches. These methods enhance interpretability, robustness, and adaptability by effectively utilizing both labeled and unlabeled data, thereby improving performance across various applications, including computer vision tasks like tone mapping and detail enhancement \cite{fan2018imagesmoothingunsupervisedlearning,tang2023mvpmultitasksupervisedpretraining,jang2024visualdeltageneratorlarge}.
+
+\subsection{Scenarios Favoring Semi-supervised Learning} \label{subsec:Scenarios Favoring Semi-supervised Learning}
+
+Semi-supervised learning is particularly advantageous in scenarios where labeled data is limited or costly to acquire, yet abundant unlabeled data is available. This situation is prevalent in medical diagnostics, where expert annotation is necessary for labeled data, as evidenced by the automated detection and classification of diseases like acute leukemia \cite{zolfaghari2023surveyautomateddetectionclassification}. In these cases, semi-supervised learning can leverage extensive unlabeled medical images to enhance model accuracy and reliability while minimizing the need for costly labeled data.
+
+Another domain where semi-supervised learning excels is anomaly detection, particularly in predictive analytics using smartphone sensors. Here, labeled data is often scarce due to the dynamic nature of human behavior, complicating the establishment of comprehensive ground truth datasets. By utilizing unlabeled data, semi-supervised learning effectively identifies anomalies in sleep and communication patterns, aiding in the early detection of depressive episodes \cite{jeong2016predictiveanalyticsusingsmartphone}.
+
+In natural language processing, semi-supervised learning proves beneficial for domain adaptation tasks, such as language translation, where labeled data may not be readily available for all language pairs or domains. This enables models to adapt to new domains by incorporating unlabeled data, thereby improving translation quality and reducing reliance on extensive labeled datasets \cite{bogoychev2020domaintranslationesenoisesynthetic}.
+
+Furthermore, semi-supervised learning is advantageous in image classification tasks involving complex data structures, such as SAR image classification. The integration of unlabeled data with limited labeled examples allows for more accurate semantic labeling and physical property analysis, as demonstrated by the PGIL method \cite{huang2022physicallyexplainablecnnsar}. This capability is essential in applications where data complexity necessitates advanced interpretability and accuracy.
+
+In high-dimensional data analysis, semi-supervised learning effectively addresses scenarios with redundant or collinear features, optimizing labeled data utilization to enhance model robustness and interpretability \cite{williams2018nonpenalizedvariableselectionhighdimensional}. By leveraging both labeled and unlabeled data, semi-supervised learning provides a strategic advantage in overcoming challenges posed by high-dimensional datasets.
+
+In conclusion, semi-supervised learning is particularly beneficial in situations where obtaining labeled data is challenging due to constraints, while substantial unlabeled data is available. This approach effectively combines the strengths of both labeled and unlabeled datasets, enhancing model performance across various applications, including retrieval tasks where labeled examples may be scarce, yet unlabeled data can yield valuable insights for improving accuracy \cite{jang2024visualdeltageneratorlarge,gao2023benefitslabeldescriptiontrainingzeroshot}.
+
+
+
+
+
+
+
+
+
+\section{Applications and Case Studies} \label{sec:Applications and Case Studies}
+
+
+
+In recent years, the integration of semi-supervised learning has gained significant traction across various fields, demonstrating its versatility and effectiveness in enhancing model performance. This section explores the diverse applications of semi-supervised learning, beginning with its transformative impact in the realm of medical imaging and diagnostics. By leveraging both labeled and unlabeled data, semi-supervised learning not only improves the accuracy of diagnostic models but also addresses the challenges posed by the scarcity of labeled data in clinical settings. The following subsection will delve into specific methodologies and case studies that illustrate the advancements achieved through this approach in medical imaging and diagnostics.
+
+
+
+
+
+
+
+\subsection{Medical Imaging and Diagnostics} \label{subsec:Medical Imaging and Diagnostics}
+
+Semi-supervised learning has emerged as a transformative approach in the field of medical imaging and diagnostics, offering significant enhancements in model performance by effectively leveraging both labeled and unlabeled data. This approach is particularly beneficial in medical domains where acquiring labeled data is challenging due to the need for expert annotations. In medical imaging, semi-supervised learning facilitates improved segmentation and classification tasks, which are critical for accurate disease diagnosis and treatment planning.
+
+
+
+One notable application of semi-supervised learning in medical imaging is the segmentation of anatomical structures, where the incorporation of unlabeled data enhances model predictions and boosts segmentation accuracy through techniques such as adversarial learning. This approach utilizes convolutional neural networks (CNN) to extract features, which are then processed by fully connected networks for both the primary tasks of segmentation and classification, as well as for domain discrimination (e.g., differentiating between scanner types or sites). By effectively masking the domain information, this method not only refines segmentation outcomes but also facilitates the acquisition of low-dimensional representations for similar disease data, thereby improving overall model performance. \cite{arai2021diseaseorientedimageembeddingpseudoscanner}. This is crucial for tasks such as tumor detection and organ delineation, where precise segmentation is vital for effective clinical decision-making.
+
+
+
+Moreover, semi-supervised learning approaches have been instrumental in enhancing the capabilities of robotic systems in medical environments. For instance, the method proposed by \cite{chen2023learninggraspclothingstructural} demonstrates the potential of structural region segmentation in improving robotic manipulation tasks, achieving high grasping success rates in garment-hanging tasks. This application underscores the versatility of semi-supervised learning in addressing complex manipulation challenges in medical settings.
+
+
+
+The practical benefits of semi-supervised learning in medical diagnostics are further exemplified by the application of models like EcomGPT, which illustrate the potential of instruction tuning in enhancing model performance across various tasks \cite{li2023ecomgptinstructiontuninglargelanguage}. This approach is particularly relevant in scenarios where traditional methods struggle to achieve high accuracy due to limited labeled data.
+
+
+
+Additionally, the CGMOS method highlights the effectiveness of semi-supervised learning in improving classification performance in diverse datasets, demonstrating its applicability in medical diagnostics where traditional methods may fall short \cite{zhang2016cgmoscertaintyguidedminority}. This capability is crucial for developing robust diagnostic models that can operate effectively in data-constrained environments.
+
+
+
+The integration of semi-supervised learning techniques in medical imaging and diagnostics not only enhances model accuracy and reliability through effective distance metric learning and data harmonization but also significantly contributes to improved clinical outcomes and patient care by enabling more precise interpretations of similar disease data and maintaining robustness against unexpected input variations. \cite{arai2021diseaseorientedimageembeddingpseudoscanner}
+
+
+
+
+\subsection{Vision and Image Processing} \label{subsec:Vision and Image Processing}
+
+The incorporation of semi-supervised learning in vision and image processing tasks has notably enhanced model performance by effectively utilizing both labeled and unlabeled data, thereby enabling complex analyses even when labeled datasets are limited, and facilitating advancements such as the integration of knowledge from Large Language Models (LLMs) into semi-supervised Composed Image Retrieval (CIR) \cite{jang2024visualdeltageneratorlarge}. This approach is particularly advantageous in scenarios where acquiring labeled data is challenging or resource-intensive, such as in the classification and segmentation of high-resolution images. 
+
+As illustrated in \autoref{fig:tiny_tree_figure_3}, the application of semi-supervised learning significantly contributes to various aspects of vision and image processing, encompassing tasks such as image classification, semantic segmentation, and object detection. The figure effectively highlights the versatility of semi-supervised learning in enhancing these tasks, alongside other image processing applications like tone mapping, detail enhancement, and image abstraction.
+
+In the domain of image classification, semi-supervised learning facilitates the extraction of meaningful features from both labeled and unlabeled data, enhancing the model's ability to discern intricate patterns and structures within images. This is exemplified by the application of the PGIL method in SAR image classification, where the integration of physical model knowledge with machine learning techniques improves interpretability and classification accuracy \cite{huang2022physicallyexplainablecnnsar}. Such methods highlight the potential of semi-supervised learning to overcome the limitations of traditional deep learning approaches by incorporating domain-specific information.
+
+Furthermore, semi-supervised learning has demonstrated significant effectiveness in improving semantic segmentation of images, which is essential for various vision applications that demand accurate identification and delineation of distinct objects and regions within an image. This approach leverages both labeled and unlabeled data, addressing the limitations of traditional methods and enhancing overall performance in visual recognition tasks \cite{jang2024visualdeltageneratorlarge,pihlgren2024systematicperformanceanalysisdeep}. By leveraging unlabeled data, models can refine their predictions and improve segmentation accuracy, which is essential for applications such as autonomous driving and environmental monitoring.
+
+The application of semi-supervised learning in image processing encompasses various tasks aimed at restoring and enhancing image quality, including tone mapping, detail enhancement, and image abstraction, reflecting its versatility in the field of computer vision and graphics \cite{fan2018imagesmoothingunsupervisedlearning}. Techniques that incorporate both labeled and unlabeled data can improve the robustness of models against noise and distortion, leading to clearer and more accurate image reconstructions.
+
+Furthermore, semi-supervised learning approaches have significantly advanced the field of object detection by enabling models to effectively identify and localize objects within images, leveraging both labeled and unlabeled data to improve performance in visual recognition tasks \cite{jang2024visualdeltageneratorlarge}. By utilizing unlabeled data, these models can enhance their detection capabilities, particularly in complex scenes with multiple overlapping objects.
+
+The implementation of semi-supervised learning in vision and image processing tasks significantly enhances model performance by effectively integrating both labeled and unlabeled data, resulting in improved accuracy and robustness while mitigating the reliance on large labeled datasets. This approach harnesses the strengths of models like CLIP and BLIP, which leverage extensive image-text pairs to achieve precise alignment between language and visual representations, thereby advancing retrieval performance in applications such as CIR \cite{jang2024visualdeltageneratorlarge}. This approach is crucial for advancing the state-of-the-art in image analysis and facilitating the development of more efficient and effective vision systems.
+
+\input{figs/tiny_tree_figure_3}
+\subsection{Natural Language Processing and Text Analysis} \label{subsec:Natural Language Processing and Text Analysis}
+
+Semi-supervised learning is crucial for enhancing natural language processing (NLP) and text analysis, as it leverages both labeled and unlabeled data to significantly improve model performance across various linguistic tasks. Recent research indicates that pre-training models with labeled data can lead to superior outcomes in NLP, particularly in long-document processing and retrieval, highlighting the importance of developing innovative techniques that effectively utilize both types of data during the pre-training and fine-tuning phases. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,tang2023mvpmultitasksupervisedpretraining}. This approach is particularly beneficial in scenarios where acquiring labeled data is challenging or resource-intensive, such as in domain adaptation and sentiment analysis.
+
+
+
+In the context of domain adaptation, semi-supervised learning facilitates the transfer of knowledge from a source domain with ample labeled data to a target domain with limited labeled examples. This is exemplified in language translation tasks, where models are trained to adapt to new domains by incorporating unlabeled data, thereby improving translation quality and reducing the reliance on extensive labeled datasets \cite{bogoychev2020domaintranslationesenoisesynthetic}. The integration of unlabeled data allows models to better capture the linguistic nuances and contextual variations inherent in different domains, enhancing their adaptability and accuracy.
+
+
+
+"Moreover, semi-supervised learning has demonstrated its effectiveness in sentiment analysis by enabling models to accurately identify and classify sentiments expressed in text data, even in the context of long documents, where traditional labeled data techniques may struggle." \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}. By leveraging unlabeled data, these models can refine their predictions and improve classification accuracy, which is essential for applications such as social media monitoring and customer feedback analysis. The ability to incorporate unlabeled data enables models to capture a broader range of sentiment expressions, enhancing their robustness and generalization capabilities.
+
+
+
+In text classification, semi-supervised learning enhances the model's capability to extract meaningful features from both labeled and unlabeled data, thereby improving its ability to identify complex patterns and structures within text. This approach is particularly valuable in the context of long-document processing and retrieval, an emerging research area that has seen the development of specialized techniques for text similarity tasks, as highlighted in recent studies (Jiang et al., 2019). By leveraging both types of data, semi-supervised learning not only augments the training process but also addresses the challenges associated with analyzing lengthy textual content. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}. This is particularly relevant in tasks involving the categorization of large volumes of textual data, where the integration of unlabeled data can significantly improve classification performance.
+
+
+
+"Furthermore, semi-supervised learning approaches have significantly advanced the field of information retrieval by enabling models to effectively identify and extract relevant information from extensive text corpora, particularly through the development of long-document processing and retrieval techniques that leverage both labeled and unlabeled data." \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}. By utilizing unlabeled data, these models can enhance their retrieval capabilities, particularly in complex queries that require a deep understanding of the contextual relationships between terms.
+
+
+
+Overall, the application of semi-supervised learning in NLP and text analysis offers substantial benefits, enabling models to achieve higher accuracy and robustness while reducing the dependency on extensive labeled datasets. This approach is crucial for advancing the state-of-the-art in text analysis and facilitating the development of more efficient and effective language processing systems.
+
+
+
+\subsection{Robotics and Automation} \label{subsec:Robotics and Automation}
+
+Semi-supervised learning has emerged as a powerful tool in the field of robotics and automation, offering innovative solutions to the challenges associated with limited labeled data and the need for adaptive learning in dynamic environments. This approach leverages both labeled and unlabeled data to enhance the learning capabilities of robotic systems, enabling them to perform complex tasks with higher accuracy and efficiency.
+
+
+
+In robotics, semi-supervised learning enhances the development of adaptive models capable of responding to diverse conditions and environments, which is essential for complex tasks like autonomous navigation and manipulation; this approach not only improves model performance but also supports evolutionary search techniques that optimize robotic capabilities. \cite{le2019evolvingselfsupervisedneuralnetworks}. By incorporating unlabeled data, robotic systems can refine their understanding of the environment and improve decision-making processes, leading to more reliable and robust performance. This adaptability is particularly important in scenarios where the availability of labeled data is limited or costly to obtain.
+
+
+
+Moreover, semi-supervised learning plays a significant role in the automation of industrial processes, where the integration of unlabeled data can enhance the efficiency and precision of automated systems. For instance, in manufacturing, semi-supervised models can optimize production lines by learning from both labeled and unlabeled data, resulting in improved quality control and reduced operational costs.
+
+
+
+The application of semi-supervised learning in robotics also extends to the development of intelligent systems capable of human-robot interaction. By leveraging unlabeled data, these systems can better understand and respond to human behaviors and commands, facilitating more natural and effective interactions. This capability is essential for applications such as assistive robotics and service robots, where understanding and adapting to human needs is critical.
+
+
+
+"Furthermore, semi-supervised learning facilitates the creation of autonomous robotic systems capable of self-directed learning and adaptation over time, significantly reducing the need for extensive human intervention. This approach not only enhances the performance of robots by integrating evolutionary search techniques with gradient descent learning but also enables them to predict and solve multiple tasks, including regression and complex physical environments, through intrinsic self-supervision rather than relying solely on external labels or reward functions." \cite{le2019evolvingselfsupervisedneuralnetworks}. This self-improving capability is particularly beneficial in environments where conditions change frequently, allowing robots to continuously adapt and optimize their performance.
+
+
+
+Overall, the role of semi-supervised learning in robotics and automation is transformative, providing robust solutions for enhancing the adaptability, efficiency, and intelligence of automated systems. By effectively utilizing both labeled and unlabeled data, semi-supervised learning facilitates the development of advanced robotic technologies capable of meeting the demands of diverse and dynamic applications.
+
+
+
+\subsection{Finance and Economic Data Analysis} \label{subsec:Finance and Economic Data Analysis}
+
+The application of semi-supervised learning in finance and economic data analysis has demonstrated significant potential in enhancing predictive accuracy and decision-making processes by effectively leveraging both labeled and unlabeled data. This approach is particularly beneficial in financial domains where acquiring labeled data can be costly and time-consuming, yet there is an abundance of unlabeled data available from various sources such as market transactions, economic indicators, and financial reports.
+
+
+
+In the context of financial risk management, semi-supervised learning facilitates the development of robust models capable of predicting market trends and identifying potential risks. By incorporating unlabeled data, these models can refine their predictions and improve their ability to detect anomalies, such as fraudulent transactions or market manipulations. This capability is crucial for financial institutions aiming to enhance their risk assessment frameworks and safeguard against financial losses.
+
+
+
+Moreover, semi-supervised learning plays a pivotal role in portfolio management, where models are tasked with optimizing investment strategies based on historical data and market conditions. The integration of unlabeled data allows for a more comprehensive analysis of market dynamics, enabling models to adapt to changing economic environments and improve investment decision-making. This adaptability is particularly important in volatile markets, where timely and accurate predictions can significantly impact investment outcomes.
+
+
+
+In economic forecasting, semi-supervised learning methods have proven effective in analyzing large datasets to predict economic indicators such as GDP growth, inflation rates, and employment levels. By leveraging both labeled and unlabeled data, these models can enhance the accuracy of their forecasts, providing valuable insights for policymakers and businesses in strategic planning and resource allocation.
+
+
+
+Furthermore, the application of semi-supervised learning in credit scoring and loan approval processes has shown promise in improving the accuracy and fairness of credit evaluations. By utilizing unlabeled data, financial institutions can better assess the creditworthiness of applicants, reducing the risk of default and enhancing the inclusivity of financial services.
+
+
+
+Overall, the integration of semi-supervised learning in finance and economic data analysis offers substantial benefits, enabling models to achieve higher accuracy and robustness while reducing the dependency on extensive labeled datasets. This approach is crucial for advancing the state-of-the-art in financial analytics and facilitating the development of more efficient and effective economic decision-making systems.
+
+
+
+\subsection{Graph and Network Analysis} \label{subsec:Graph and Network Analysis}
+
+Semi-supervised learning has emerged as a powerful technique in graph and network analysis, significantly enhancing model performance by effectively leveraging both labeled and unlabeled data. This approach has been particularly beneficial in tasks such as forecasting and long-document processing, where graph representations capture structural information, enabling advanced applications in areas like chemical composition and crystal structure analysis. Recent advancements, including extensions of Spectral Networks that incorporate graph estimation procedures, further illustrate the potential of semi-supervised learning in extracting valuable insights from complex datasets. \cite{ginzburg2021selfsuperviseddocumentsimilarityranking,ullah2019graphconvolutionalnetworksanalysis,shinji2024learningattributedgraphletspredictive}. This approach is particularly beneficial in scenarios where the relational structure of data is crucial for understanding and predicting network behaviors.
+
+
+
+In graph-based applications, semi-supervised learning facilitates the extraction and utilization of structural information inherent in graphs, such as node attributes and edge relationships. This is exemplified by methods that leverage graph neural networks (GNNs) to capture complex dependencies and patterns within network data, thereby improving classification and clustering tasks. The ability to incorporate unlabeled data allows models to better generalize across different graph structures, enhancing their adaptability and accuracy.
+
+
+
+"Furthermore, semi-supervised learning is essential in network analysis tasks such as community detection and link prediction, as it effectively utilizes both labeled and unlabeled data to enhance model robustness and reliability. By integrating unlabeled nodes, models can better predict node labels and capture the underlying structure of the network, which is crucial for accurate forecasting and knowledge discovery in data mining." \cite{ullah2019graphconvolutionalnetworksanalysis,kawase2022stochasticsolutionsdensesubgraph}. By leveraging the connectivity patterns and structural features of networks, semi-supervised models can effectively identify hidden communities and predict potential connections, which are essential for applications in social network analysis and recommendation systems.
+
+
+
+The application of semi-supervised learning in graph and network analysis extends to signal processing, where methods like the PRE demonstrate the potential for enhancing signal detection and estimation processes \cite{liu2020posteriorratioestimationlatent}. By utilizing both labeled and unlabeled data, these models can refine their predictions and improve the accuracy of signal processing tasks, illustrating the practical benefits of semi-supervised algorithms in diverse fields.
+
+
+
+"Furthermore, semi-supervised learning (SSL) approaches have significantly advanced the field of network security by effectively utilizing both labeled and unlabeled data to enhance model training, enabling more accurate detection and response to anomalies and threats within network traffic." \cite{ullah2019graphconvolutionalnetworksanalysis,liu2023realtimesafetyassessmentdynamic}. By incorporating unlabeled data, these models can enhance their detection capabilities, particularly in complex network environments with evolving threat landscapes.
+
+
+
+Overall, the use of semi-supervised learning in graph and network analysis offers substantial benefits, enabling models to achieve higher accuracy and robustness while reducing the dependency on extensive labeled datasets. This approach is crucial for advancing the state-of-the-art in network analysis and facilitating the development of more efficient and effective graph-based systems.
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Challenges and Future Directions} \label{sec:Challenges and Future Directions}
+
+The landscape of semi-supervised learning is characterized by various challenges that significantly impact model performance and future research trajectories. This section focuses on critical issues such as scalability, computational complexity, algorithmic efficiency, and the integration of unlabeled data, which are essential for developing robust models capable of managing large datasets while ensuring accuracy and generalizability.
+
+
+\subsection{Scalability and Computational Complexity} \label{subsec:Scalability and Computational Complexity}
+
+Scalability and computational complexity are prominent challenges in semi-supervised learning, especially as models must process large datasets efficiently. A major concern is the risk of overfitting due to limited training samples, which can hinder generalizability \cite{tumer1999ensemblesradialbasisfunction}. This issue is amplified in high-dimensional settings, where computational demands pose significant barriers to effective learning \cite{williams2018nonpenalizedvariableselectionhighdimensional}.
+
+The CRoP framework highlights the dependence on the quality of pre-trained models, which further complicates scalability and data quality considerations in semi-supervised learning \cite{kaur2024cropcontextwiserobuststatic}. The assumption that a labeling oracle can label all instances with equal certainty and cost is often unrealistic, particularly for atypical or out-of-distribution points, complicating scalability \cite{sen2018supervisingfeatureinfluence}. 
+
+In practical applications such as vessel segmentation, the efficacy of methods like the VGN is contingent on the quality of initial CNN-generated probability maps, illustrating the interplay between scalability and computational complexity \cite{shin2018deepvesselsegmentationlearning}. Additionally, the computational intractability of exact calculations related to initial margins mirrors the scalability challenges inherent in semi-supervised learning \cite{kun2022mathematicalfoundationsregressionmethods}.
+
+Existing benchmarks struggle to detect clustering at small scales, particularly when areal units differ significantly in size, further emphasizing scalability issues \cite{vidanapathirana2022clusterdetectioncapabilitiesaverage}. Addressing these challenges necessitates the development of novel architectures and optimization strategies to enhance both scalability and computational efficiency, paving the way for more effective semi-supervised learning models in real-world applications. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{path/to/your/image}
+    \caption{This figure illustrates the key challenges and considerations in scalability and computational complexity within semi-supervised learning, highlighting issues of overfitting and generalizability, the role of pre-trained models and data quality, and practical applications and methods in various domains.}
+    \label{tiny_tree_figure_4}
+\end{figure}
+
+The insights presented in \autoref{fig:tiny_tree_figure_4} encapsulate the multifaceted challenges faced in the realm of semi-supervised learning, emphasizing the critical need for innovative solutions to enhance scalability and address computational complexity.
+
+\input{figs/tiny_tree_figure_4}
+\subsection{Algorithmic Efficiency and Robustness} \label{subsec:Algorithmic Efficiency and Robustness}
+
+Achieving algorithmic efficiency and robustness in semi-supervised learning is a complex endeavor, particularly when navigating the trade-offs between computational demands and model accuracy. The intricacy of semi-supervised algorithms often necessitates approximation methods to optimize computational resources, which may inadvertently compromise precision and robustness \cite{kun2022mathematicalfoundationsregressionmethods}. This challenge is particularly pronounced in high-dimensional contexts, where efficient computation is crucial for maintaining performance.
+
+The robustness of these models is further tested by variability in data quality and distribution, impacting the stability and reliability of learning outcomes. Developing adaptive algorithms capable of adjusting to diverse data characteristics is essential for ensuring robust performance across various datasets and applications. Such frameworks must dynamically respond to changing data environments to enhance both efficiency and robustness.
+
+The integration of labeled and unlabeled data enriches the model's learning capacity but complicates the challenge of maintaining algorithmic efficiency, especially in the context of emerging long-document processing and retrieval techniques \cite{ginzburg2021selfsuperviseddocumentsimilarityranking}. Effectively leveraging both data types requires sophisticated mechanisms for data integration and processing, which can strain computational resources and affect scalability. Innovative approaches that optimize data utilization while streamlining computational processes are vital for ensuring efficient operation across diverse applications.
+
+\subsection{Integration of Unlabeled Data} \label{subsec:Integration of Unlabeled Data}
+
+Integrating unlabeled data is crucial for enhancing model performance by diversifying the dataset. A key challenge is ensuring that unlabeled data contributes positively without introducing noise or bias. The APSL framework illustrates strategies for incorporating local structures around specific nodes, which parallels the challenge of effectively integrating unlabeled data in semi-supervised learning \cite{ling2021bayesiannetworkstructurelearning}. This highlights the need for strategic data integration to optimize learning outcomes.
+
+Methodologies such as introducing latent variables for outliers and missing data provide insights into managing complex data structures \cite{revillon2017variationalbayesianinferencescale}. This approach underscores the importance of robust mechanisms to handle data anomalies, enhancing the integration process's effectiveness.
+
+Future research directions, including those suggested by CRoP, emphasize improving model adaptability to various datasets, directly linked to the integration of unlabeled data \cite{kaur2024cropcontextwiserobuststatic}. Enhancing adaptability is vital for developing models capable of generalizing across different data environments, thus improving robustness and accuracy.
+
+Exploring max-norm loss functions in complex neural network architectures offers potential for refining integration strategies to accommodate diverse data types \cite{peiris2021deeplearningnonsmoothobjectives}. This refinement is critical for effectively leveraging unlabeled data across various applications, leading to improved learning outcomes.
+
+Addressing challenges related to redundant data integration, as discussed by \cite{williams2018nonpenalizedvariableselectionhighdimensional}, highlights the necessity of focusing on non-redundant subsets to optimize unlabeled data usage. By prioritizing informative data, models can achieve enhanced efficiency and accuracy.
+
+Effective integration of unlabeled data in semi-supervised learning requires a combination of strategic data management, adaptive learning frameworks, and robust anomaly handling, contributing to the development of accurate and reliable learning models.
+
+\subsection{Applications and Domain-Specific Challenges} \label{subsec:Applications and Domain-Specific Challenges}
+
+The application of semi-supervised learning across various domains presents unique challenges and opportunities that warrant further investigation to enhance model adaptability and performance. In neural networks, future research could focus on evolving both weights and topology to create more flexible self-supervised learning systems capable of adapting to diverse environments \cite{le2019evolvingselfsupervisedneuralnetworks}.
+
+In the domain of SAR image classification, refining the physics injection strategy is essential for improving performance in classes with overlapping characteristics \cite{huang2022physicallyexplainablecnnsar}. Addressing these challenges can lead to more accurate and interpretable models for complex image analysis tasks.
+
+The field of predictive analytics using smartphone data faces challenges such as incomplete sleep behavior capture, which may hinder method effectiveness \cite{jeong2016predictiveanalyticsusingsmartphone}. Future research could explore integrating additional data sources for a comprehensive view of user behavior, thereby enhancing model accuracy and reliability.
+
+In medical diagnostics, the need for robust models that can handle diverse image conditions and the insufficient exploration of certain leukemia types pose significant challenges \cite{zolfaghari2023surveyautomateddetectionclassification}. Developing adaptable models to varying image qualities is crucial for improving diagnostic accuracy and patient outcomes.
+
+The domain of translation quality evaluation encounters challenges related to translationese effects across language pairs, suggesting future work could explore additional metrics to enhance evaluation processes \cite{bogoychev2020domaintranslationesenoisesynthetic}. This exploration can lead to more accurate assessments of translation quality and the development of effective language processing models.
+
+In graph and network analysis, refining estimation processes in high-dimensional settings and extending methods like PRE to other machine learning applications are critical for improving model accuracy and scalability \cite{liu2020posteriorratioestimationlatent}.
+
+Integrating spatial clustering detection methods into popular GIS software and exploring new methods tailored for areal data represent significant opportunities for advancing semi-supervised learning in spatial analysis \cite{vidanapathirana2022clusterdetectioncapabilitiesaverage}. This integration can enhance the applicability of semi-supervised methods in geographic information systems, facilitating more accurate spatial analyses.
+
+In feature influence and counterfactual analysis, future research could focus on addressing counterfactual queries for points distant from the distribution and developing algorithms that account for labeling costs in the learning process \cite{sen2018supervisingfeatureinfluence}. These advancements are vital for improving model robustness and interpretability in dynamic data environments.
+
+The diverse challenges and opportunities associated with domain-specific applications underscore the transformative potential of semi-supervised learning, which effectively utilizes both labeled and unlabeled data to enhance model performance. This is particularly relevant in multisource domain adaptation scenarios, where algorithms leverage labeled instances from multiple sources alongside a subset of labeled instances from the target domain, as emphasized in recent studies \cite{jang2024visualdeltageneratorlarge,zhao2017multiplesourcedomainadaptation}. Continued exploration and innovation in this field are essential for addressing existing limitations and further enhancing the effectiveness of semi-supervised learning across various applications.
+
+
+
+
+
+
+
+
+\section{Conclusion} \label{sec:Conclusion}
+
+
+
+
+
+The exploration of semi-supervised learning in this survey underscores its transformative potential in machine learning, particularly in enhancing model performance by integrating both labeled and unlabeled data across diverse applications. This approach is crucial in scenarios where labeled data is limited or costly, offering a strategic advantage over traditional methods. The integration of semi-supervised learning techniques has demonstrated significant improvements in classification accuracy, as evidenced by the enhancements in vessel segmentation accuracy achieved by the VGN \cite{shin2018deepvesselsegmentationlearning}. Moreover, the CRoP framework highlights significant improvements in personalization effectiveness and generalization capabilities, reinforcing the importance of semi-supervised learning in leveraging both labeled and unlabeled data \cite{kaur2024cropcontextwiserobuststatic}.
+
+
+
+The potential for generalization across domains and tasks is further emphasized by the APSL framework, which provides a strong foundation for future research in Bayesian network learning, highlighting the potential for advancements in semi-supervised learning techniques \cite{ling2021bayesiannetworkstructurelearning}. The extension of the Vendi Score to a family of metrics allows for improved sensitivity to item prevalence, enhancing the evaluation of diversity in various applications \cite{pasarkar2024cousinsvendiscorefamily}.
+
+
+
+Additionally, the potential of semi-supervised learning to improve learning accuracy is exemplified by the LBW-Net, which achieves nearly lossless performance with 6-bit quantization, enhancing the efficiency of semi-supervised learning applications \cite{yin2017quantizationtraininglowbitwidth}. The integration of traditional and modern techniques in automated detection and classification of diseases, such as cervical pre-cancer, suggests significant improvements in sensitivity and specificity, indicating future prospects for research in semi-supervised learning applications .
+
+
+
+Future research should focus on overcoming challenges related to scalability, algorithmic efficiency, and the integration of unlabeled data. The necessity for improvements in numerical stability, as noted in rigorous mathematical foundations, indicates a critical area for advancement, reinforcing the importance of developing robust methodologies in both financial computations and semi-supervised learning \cite{kun2022mathematicalfoundationsregressionmethods}. By addressing these challenges, the field can advance towards developing more effective and adaptable learning systems, ultimately enhancing the capabilities and applications of machine learning across various domains.
