@@ -1,0 +1,73 @@
+{
+    "from": "arxiv",
+    "scholar_id": null,
+    "detail_id": "arXiv:0901.2703",
+    "title": "Language recognition by generalized quantum finite automata with unbounded error (abstract & poster)",
+    "abstract": "In this note, we generalize the results of arXiv:0901.2703v1 We show that all one-way quantum finite automaton (QFA) models that are at least as general as Kondacs-Watrous QFA's are equivalent in power to classical probabilistic finite automata in this setting. Unlike their probabilistic counterparts, allowing the tape head to stay put for some steps during its traversal of the input does enlarge the class of languages recognized by such QFA's with unbounded error. (Note that, the proof of Theorem 1 in the abstract was presented in the previous version (arXiv:0901.2703v1).)",
+    "bib_name": "yakaryilmaz2010languagerecognitiongeneralizedquantum",
+    "md_text": "# Language Recognition by Generalized Quantum Finite Automata with Unbounded Error\u2217\nAbuzer Yakary\u0131lmaz A. C. Cem Say Bo\u02d8gazi\u00e7i University, Department of Computer Engineering, Bebek 34342 \u02d9Istanbul, Turkey\n{say,abuzer}@boun.edu.tr\nMarch 29, 2009\nResearch on theoretical models of practically implementable quantum computers has focused on variants of the quantum finite automaton (QFA). The bounded-error language recognition capabilities of various alternative QFA types have been analyzed and compared with their classical counterparts. In this paper, we examine the computational power of QFA\u2019s in the unbounded error setting. Extending previous work [8], we show that all one-way QFA models that are at least as general as Kondacs-Watrous QFA\u2019s (KWQFA\u2019s) [3] are equivalent in power to classical probabilistic finite automata in this setting. Unlike their probabilistic counterparts, allowing the tape head to stay put for some steps during its traversal of the input does enlarge the class of languages recognized by such QFA\u2019s with unbounded error. A Nayak QFA (NQFA) [5] undergoes three operations in each step of the traversal of its input tape: First, its state vector evolves according to the unitary transformation dictated by the scanned symbol. Then, it undergoes the projective measurement associated with the same symbol. Finally, another measurement is performed to see whether the machine has accepted, rejected, or not halted yet. The computation continues with the next tape symbol only if this measurement yields the result that the machine has not halted yet. A KWQFA is a NQFA where the first measurement described above is just the identity operator. Theorem 1 Let G1 be a NQFA with n states and fG1 : \u03a3 \u2192[0, 1] be its acceptance probability function. Then, there exists a generalized probabilistic finite automaton (GPFA) [7] G2 with O(n2) states such that fG1(w) = fG2(w) for all w \u2208\u03a3\u2217. Theorem 1 establishes that every language recognized with unbounded error by an NQFA is stochastic. Combining this with the fact [8] that every stochastic language can be recog-\nCorollary 1 The class of languages recognized with unbounded error by NQFA\u2019s equals the clas of stochastic languages.\nSeveral other one-way QFA models (like [6, 2], and the one-way version of the machines of [1],) that generalize the KWQFA have appeared in the literature. In the bounded-error case, some of these generalized machines recognize more languages than the KWQFA. We claim that the classes of languages recognized with unbounded error by all these automata are identical to each other. We demonstrate this fact for one of the most general models, namely, the quantum finite automaton with control language (QFC) [2], the proofs for the other variants are similar. For any QFC M, there exists a GPFA that computes exactly the same acceptance probability function as M, and for any KWQFA M1, there exists a QFC that computes the same acceptance probability function as M1 [4]. Therefore, QFC\u2019s recognize all and only the stochastic languages with unbounded error. Regardless of the specifics of their definitions, the two\u2013way versions of any of these models will have to contain two\u2013way KWQFA\u2019s as specimens, and the fact [8] that even \u201c1.5\u2013way\" KWQFA\u2019s can recognize nonstochastic languages, combined with our Theorem 1, show that such an additional capability would enlarge the class of languages recognized by all these QFA\u2019s with unbounded error.\n# Language Recognition by Generalized Quantum Finite Automata with Unbounded Error\nAbuzer Yakary\u0131lmaz (abuzer@boun.edu.tr) and A. C. Cem Say (say@boun.edu.tr) Bo\u02d8gazi\u00e7i University, Department of Computer Engineering, Bebek 34342 \u02d9Istanbul, Turkey\nMain Result\nWe show that all one-way QFA models that are at least as general as Kondacs-Watrous QFA\u2019s (KWQFA\u2019s) [3] are equivalent in power to classical probabilistic finite automata in the unbounded error setting. Unlike their probabilistic counterparts, allowing the tape head to stay put for some steps during its traversal of the input does enlarge the class of languages recognized by such QFA\u2019s with unbounded error.\n# Nayak QFA\nA Nayak QFA (NQFA) [5] undergoes three operations in each step of the traversal of its input tape: First, its state vector evolves according to the unitary transformation dictated by the scanned symbol. Then, it undergoes the projective measurement associated with the same symbol. Finally, another measurement is performed to see whether the machine has accepted, rejected, or not halted yet. The computation continues with the next tape symbol only if this measurement yields the result that the machine has not halted yet. A KWQFA is a NQFA where the first measurement described above is just the identity operator. Theorem 2 Let G1 be a NQFA with n states and fG1 : \u03a3 \u2192[0, 1] be its acceptance probability function. Then, there exists a generalized probabilistic finite automaton (GPFA) [7] G2 with O(n2) states such that fG1(w) = fG2(w) for all w \u2208\u03a3\u2217. Theorem 2 establishes that every language recognized with unbounded error by an NQFA is stochastic. Combining this with the fact [8] that every stochastic language can be recognized by a KWQFA, we obtain Corollary 2 The class of languages recognized with unbounded error by NQFA\u2019s equals the class of stochastic languages.\n# r QFA\u2019s\n# Other QFA\u2019s\nSeveral other one-way QFA models (like [6, 2], and the one-way version of the machines of [1],) that generalize the KWQFA have appeared in the literature. In the bounded-error case, some of these generalized machines recognize more languages than the KWQFA. We claim that the classes of languages recognized with unbounded error by all these automata are identical to each other. We demonstrate this fact for one of the most general models, namely, the quantum finite automaton with control language (QFC) [2], the proofs for the other variants are similar. For any QFC M, there exists a GPFA that computes exactly the same acceptance probability function as M, and for any KWQFA M1, there exists a QFC that computes the same acceptance probability function as M1 [4]. Therefore, QFC\u2019s recognize all and only the stochastic languages with unbounded error.\n# two\u2013way QFA\nRegardless of the specifics of their definitions, the two\u2013way versions of any of these models will have to contain two\u2013way KWQFA\u2019s as specimens, and the fact [8] that even \u201c1.5\u2013way\" KWQFA\u2019s can recognize nonstochastic languages, combined with our Theorem 2, show that such an additional capability would enlarge the class of languages recognized by all these QFA\u2019s with unbounded error.\n# References\n<div style=\"text-align: center;\"><img src=\"https://public-pdf-extract-kit.oss-cn-shanghai.aliyuncs.com/e3c6/e3c6eb94-3e8f-4575-a993-c39e0b572a64.png\" style=\"width: 50%;\"></div>\n",
+    "paper_type": "theory",
+    "attri": {
+        "background": "This paper addresses the issue of language recognition capabilities of quantum finite automata (QFA) in the unbounded error setting, expanding on previous analyses of bounded-error QFA models and their classical counterparts.",
+        "problem": {
+            "definition": "The problem focuses on understanding the computational power of one-way QFA models with unbounded error, particularly those that are at least as general as Kondacs-Watrous QFA\u2019s (KWQFA\u2019s).",
+            "key obstacle": "A main challenge is demonstrating how the allowance for the tape head to remain stationary during input traversal affects the class of languages recognized by QFA's."
+        },
+        "idea": {
+            "intuition": "The idea was inspired by the exploration of how unbounded error in language recognition can lead to a different class of languages being recognized compared to bounded-error scenarios.",
+            "opinion": "The authors propose that all one-way QFA models that are general enough to include KWQFA\u2019s are equivalent in power to classical probabilistic finite automata in the unbounded error context.",
+            "innovation": "The primary improvement lies in the recognition that allowing the tape head to stay put during input processing enlarges the class of languages recognized by QFA's with unbounded error."
+        },
+        "Theory": {
+            "perspective": "The theoretical perspective is based on the equivalence of various QFA models and their probabilistic counterparts in terms of language recognition capabilities.",
+            "opinion": "The authors assume that the capabilities of QFA's can be effectively compared to classical models when considering unbounded error.",
+            "proof": "Theorem 1 and Theorem 2 provide proofs establishing that every language recognized with unbounded error by an NQFA is stochastic, and that the class of languages recognized by NQFA's equals that of stochastic languages."
+        },
+        "experiments": {
+            "evaluation setting": "The evaluation involves comparing one-way QFA models, specifically NQFA's and KWQFA's, against generalized probabilistic finite automata (GPFA) in terms of their acceptance probability functions.",
+            "evaluation method": "The evaluation steps include deriving acceptance functions and demonstrating equivalences between the models through theoretical proofs."
+        },
+        "conclusion": "The conclusion drawn from the experiments is that all one-way QFA models that generalize KWQFA's are equivalent in power to classical probabilistic finite automata in the unbounded error setting, and that they recognize only stochastic languages.",
+        "discussion": {
+            "advantage": "The paper provides a deeper understanding of the computational capabilities of QFA's in the unbounded error setting, which can influence future research in quantum computing.",
+            "limitation": "The study primarily focuses on one-way models and may not address the complexities introduced by two-way QFA models.",
+            "future work": "Future research could explore the implications of two-way QFA models and how their capabilities might differ from those of one-way models, particularly in the context of non-stochastic languages."
+        },
+        "other info": [
+            {
+                "info1": "The paper extends previous work on bounded-error QFA by analyzing unbounded error scenarios."
+            },
+            {
+                "info2": {
+                    "info2.1": "The authors reference several models and theorems that support their findings.",
+                    "info2.2": "The paper includes discussions on the implications of the results for quantum computing theory."
+                }
+            }
+        ]
+    },
+    "mount_outline": [
+        {
+            "section number": "2.1",
+            "key information": "The paper addresses the issue of language recognition capabilities of quantum finite automata (QFA) in the unbounded error setting."
+        },
+        {
+            "section number": "2.2",
+            "key information": "The study primarily focuses on one-way models and may not address the complexities introduced by two-way QFA models."
+        },
+        {
+            "section number": "3.1",
+            "key information": "The primary improvement lies in the recognition that allowing the tape head to stay put during input processing enlarges the class of languages recognized by QFA's with unbounded error."
+        },
+        {
+            "section number": "3.2",
+            "key information": "The authors propose that all one-way QFA models that are general enough to include KWQFA\u2019s are equivalent in power to classical probabilistic finite automata in the unbounded error context."
+        },
+        {
+            "section number": "7.4",
+            "key information": "Future research could explore the implications of two-way QFA models and how their capabilities might differ from those of one-way models, particularly in the context of non-stochastic languages."
+        }
+    ],
+    "similarity_score": 0.5775479868824448,
+    "image": null,
+    "path": "/home/dany/codes/autosurvey/outputs/2025-01-11-0011_large/papers/Language recognition by generalized quantum finite automata with unbounded error (abstract & poster).json"
+}
