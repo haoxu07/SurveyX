@@ -71,13 +71,6 @@ We value your feedback! For any issues or suggestions, feel free to contact us. 
   <img src="assets/user_groups_123.jpg" alt="Wechat Group" width="300" />
 </div>
 
-## ⭐Star History
-
-⭐ Star this repo to stay updated and be the first to know about our progress and release announcements!
-
-[![Star History Chart](https://api.star-history.com/svg?repos=IAAR-Shanghai/SurveyX&type=Timeline)](https://star-history.com/#IAAR-Shanghai/SurveyX&Timeline)
-
-
 ## 📝Generated Topics
 
 ![many_papers](assets/many_papers.png)
