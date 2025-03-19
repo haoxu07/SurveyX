@@ -54,6 +54,14 @@
 
 如果您想了解SurveyX的工作原理或想了解更多关于底层技术和方法，请访问我们的 📑[网站](http://www.surveyx.cn) 以了解更多。
 
+## 🛠️ 反馈
+
+我们重视您的反馈！如有任何问题或建议，请随时与我们联系。感谢您的支持！❤️ 立即加入我们的微信天使用户群！🚀 扫描下方二维码，与我们一起塑造未来！💡
+
+<div align="center">
+  <img src="assets/user_groups_123.jpg" alt="Wechat Group" width="300" />
+</div>
+
 ## 📝 已生成的主题
 
 ![many_papers](assets/many_papers.png)
