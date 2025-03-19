@@ -54,10 +54,6 @@
 
 如果您想了解SurveyX的工作原理或想了解更多关于底层技术和方法，请访问我们的 📑[网站](http://www.surveyx.cn) 以了解更多。
 
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=IAAR-Shanghai/SurveyX&type=Timeline)](https://star-history.com/#IAAR-Shanghai/SurveyX&Timeline)
-
 ## 📝 已生成的主题
 
 ![many_papers](assets/many_papers.png)
