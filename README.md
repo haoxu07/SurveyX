@@ -28,8 +28,6 @@
   </a>
 </p>
 
-Log in to the [SurveyX official website](https://www.surveyx.cn) to experience the full features!
-
 <div align="center">
     <strong><a>If you find our work helpful, don't forget to give us a star! ⭐️</a></strong>
     <br>
@@ -42,7 +40,7 @@ Log in to the [SurveyX official website](https://www.surveyx.cn) to experience t
 
 ![surveyx_frame](assets/SurveyX.png)
 
-**SurveyX** is an advanced academic survey automation system that leverages the power of Large Language Models (LLMs) to generate high-quality, domain-specific academic papers and surveys. By simply providing a **paper title** and **keywords** for literature retrieval, users can request comprehensive academic papers or surveys tailored to specific topics.
+**SurveyX** is an advanced academic survey automation system that leverages the power of Large Language Models (LLMs) to generate high-quality, domain-specific academic papers and surveys. By simply providing a paper title and keywords for literature retrieval, users can request comprehensive academic papers or surveys tailored to specific topics.
 
 ---
 
