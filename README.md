@@ -186,14 +186,18 @@ Please cite us if you find this project helpful for your project/paper:
 
 <hr style="border: 1px solid #ecf0f1;">
 
-## ⚠️ Disclaimer
 
-- Our retrieval engine may not have access to many papers that require commercial licensing. If your research topic requires papers from sources other than arXiv, the quality and comprehensiveness of the generated papers may be affected due to limitations in our retrieval scope.
-- We currently only support the generation of English academic survey generation. Support for other languages is not available.
-- To ensure fair access for all users, each user is limited to one generation per day, prioritizing diverse user needs.
+## Open Source Version Notice
+This open source version of Surveyx is a simplified edition. It relies entirely on user-provided local reference documents and does not include advanced features such as:
+- Keyword expansion and filtering algorithms
+- Multimodal image parsing or figure extraction
+- Online reference search or automatic data fetching
+
+These advanced modules are only available in the full version of Surveyx, which is hosted by MemTensor (Shanghai) Technology Co., Ltd. If you would like to experience the complete features, please visit our official website: [surveyx.cn](https://surveyx.cn)
 
 For questions or issues, please open an issue on the repository.
 
+## ⚠️ Disclaimer
+
 SurveyX uses advanced language models to assist with the generation of academic papers. However, it is important to note that the generated content is a tool for research assistance. Users should verify the accuracy of the generated papers, as SurveyX cannot guarantee full compliance with academic standards.
 
-中文版本README：[README_zh.md](https://github.com/IAAR-Shanghai/SurveyX/blob/main/README_zh.md)
