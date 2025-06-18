@@ -33,7 +33,6 @@
 
 <div align="center">
   👉 <strong><a href="https://surveyx.cn/">访问 SurveyX</a></strong> 👈
-  <strong><a>点个Star⭐️，获取更多的生成机会！</a></strong>
 </div>
 
 ## 📄如何使用SurveyX？
