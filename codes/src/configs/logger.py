@@ -5,8 +5,10 @@ from pathlib import Path
 
 from src.configs.config import BASE_DIR
 
+
 class ColorFormatter(logging.Formatter):
     """Colored log formatter"""
+
     COLOR_CODES = {
         logging.ERROR: "\033[91m",  # Red
         logging.WARNING: "\033[93m",  # Yellow
@@ -32,19 +34,19 @@ def get_logger(name: Optional[str] = None) -> logging.Logger:
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(logging.DEBUG)
     console_formatter = ColorFormatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s - %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
+        "%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
     console_handler.setFormatter(console_formatter)
 
     # File handler with default formatting
     output_dir = Path(f"{BASE_DIR}/outputs/logs")
     output_dir.mkdir(parents=True, exist_ok=True)
-    file_handler = logging.FileHandler(output_dir / f"{name}.log", 'a')
+    file_handler = logging.FileHandler(output_dir / f"{name}.log", "a")
     file_handler.setLevel(logging.DEBUG)
     file_formatter = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s - %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
+        "%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
     file_handler.setFormatter(file_formatter)
 
@@ -53,7 +55,7 @@ def get_logger(name: Optional[str] = None) -> logging.Logger:
     return logger
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Example usage
     logger = get_logger("my_logger")
     logger.debug("This is a debug message.")

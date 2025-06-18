@@ -31,7 +31,9 @@ CRAWLER_GOOGLE_SCHOLAR_SEND_TASK_URL = ""
 DEFAULT_DATA_FETCHER_ENABLE_CACHE = True
 CUT_WORD_LENGTH = 10
 MD_TEXT_LENGTH = 20000
-ARXIV_PROJECTION = "_id, title, authors, detail_url, abstract, md_text, reference, detail_id, image"
+ARXIV_PROJECTION = (
+    "_id, title, authors, detail_url, abstract, md_text, reference, detail_id, image"
+)
 
 ## Iteration and paper pool limits
 DEFAULT_ITERATION_LIMIT = 3
@@ -54,5 +56,3 @@ FIG_CHUNK_SIZE = 8192
 MATCH_TOPK = 3
 FIG_RETRIEVE_Authorization = ""
 FIG_RETRIEVE_TOKEN = ""
-
-

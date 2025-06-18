@@ -8,7 +8,10 @@ from itertools import combinations
 from difflib import SequenceMatcher
 from src.configs.logger import get_logger
 from src.configs.config import ADVANCED_CHATAGENT_MODEL
-from src.modules.utils import (load_meta_data, load_prompt, )
+from src.modules.utils import (
+    load_meta_data,
+    load_prompt,
+)
 from src.configs.config import BASE_DIR
 from src.models.LLM import ChatAgent
 
@@ -18,14 +21,14 @@ logger = get_logger("src.modules.latex_handler.BaseTableBuilder")
 class LatexBaseTableBuilder:
     def __init__(self, chat_agent: ChatAgent = None):
         """
-        Base class initializer. This method is intentionally left empty to allow subclasses 
+        Base class initializer. This method is intentionally left empty to allow subclasses
         to implement their own initialization logic.
         """
         self.chat_agent = chat_agent if chat_agent is not None else ChatAgent()
 
     def clear_json_file(self, file_path):
         # 打开文件并清空内容
-        with open(file_path, 'w') as f:
+        with open(file_path, "w") as f:
             # 将空字典写入文件以清空内容
             json.dump([], f)
 
@@ -40,7 +43,7 @@ class LatexBaseTableBuilder:
         return True
 
     def cite_name_match(self, data_list: List, cite_name: str) -> Tuple:
-        '''
+        """
         Retrieve relevant information from the attribute tree based on the cite name.
 
         Args:
@@ -49,21 +52,39 @@ class LatexBaseTableBuilder:
 
         Returns:
             tuple: Output tuple contains information about the method description in the attribute tree.
-        '''
+        """
         for data in data_list:
-            if data['bib_name'] == cite_name and data['paper_type'] == 'method' and data['attri'] is not None and len(
-                    data['attri']['method']['method abbreviation'].split()) < 2:
-                content = 'method name:' + data['attri']['method']['method name'] + '\n' + 'method_step: \n ' + str(
-                    data['attri']['method']['method steps'])
-                complete_info = str(data['attri'])
-                return complete_info, content, data['title'], data['attri']['method']['method name'], \
-                data['attri']['method']['method abbreviation'], data['bib_name']
+            if (
+                data["bib_name"] == cite_name
+                and data["paper_type"] == "method"
+                and data["attri"] is not None
+                and len(data["attri"]["method"]["method abbreviation"].split()) < 2
+            ):
+                content = (
+                    "method name:"
+                    + data["attri"]["method"]["method name"]
+                    + "\n"
+                    + "method_step: \n "
+                    + str(data["attri"]["method"]["method steps"])
+                )
+                complete_info = str(data["attri"])
+                return (
+                    complete_info,
+                    content,
+                    data["title"],
+                    data["attri"]["method"]["method name"],
+                    data["attri"]["method"]["method abbreviation"],
+                    data["bib_name"],
+                )
         return None, None, None, None, None, None
 
     def cite_name_match_count(self, data_list, cite_names):
         count = 0
         for cite_name in cite_names:
-            if any(data['bib_name'] == cite_name and data['paper_type'] == 'method' for data in data_list):
+            if any(
+                data["bib_name"] == cite_name and data["paper_type"] == "method"
+                for data in data_list
+            ):
                 count += 1
         return count
 
@@ -71,19 +92,19 @@ class LatexBaseTableBuilder:
         info = {}
         for data in data_list:
             if (
-                    data['bib_name'] == cite_name
-                    and data['paper_type'] == 'benchmark'
-                    and data['attri'] is not None
-                    and len(data['attri']['idea']['benchmark abbreviation'].split()) < 2
-                    and self.convert_to_number(data['attri']['dataset']['size']) is not None
-                    and self.convert_to_number(data['attri']['dataset']['size']) < 10000000
+                data["bib_name"] == cite_name
+                and data["paper_type"] == "benchmark"
+                and data["attri"] is not None
+                and len(data["attri"]["idea"]["benchmark abbreviation"].split()) < 2
+                and self.convert_to_number(data["attri"]["dataset"]["size"]) is not None
+                and self.convert_to_number(data["attri"]["dataset"]["size"]) < 10000000
             ):
-                info['size'] = data['attri']['dataset']['size']
-                info['domain'] = data['attri']['dataset']['domain']
-                info['task format'] = data['attri']['dataset']['task format']
-                info['metric'] = data['attri']['metrics']['metric name']
-                info['bib_name'] = data['bib_name']
-                info['name'] = data['attri']['idea']['benchmark abbreviation']
+                info["size"] = data["attri"]["dataset"]["size"]
+                info["domain"] = data["attri"]["dataset"]["domain"]
+                info["task format"] = data["attri"]["dataset"]["task format"]
+                info["metric"] = data["attri"]["metrics"]["metric name"]
+                info["bib_name"] = data["bib_name"]
+                info["name"] = data["attri"]["idea"]["benchmark abbreviation"]
                 # info = (
                 # "Background: " + str(data['attri']['background']) + "\n" +
                 # "Dataset information: " + str(data['attri']['dataset']) + "\n" +
@@ -93,17 +114,21 @@ class LatexBaseTableBuilder:
         return None
 
     def extract_attributes(self, file_content, pri_attribute):
-        '''
+        """
         Extract the required information from the LLM response.
         Args:
             file_content: The response of LLM.
 
         Returns:
             tuple: A tuple containing the attribute name and its description.
-        '''
+        """
         # 修改为新的正则表达式
-        primary_pattern = re.compile(r'\[Attribute:\s*(.*?)\]', re.DOTALL)  # 匹配 Attribute: Name
-        description_pattern = re.compile(r'\[Description:\s*(.*?)\]', re.DOTALL)  # 匹配 Description: XXX
+        primary_pattern = re.compile(
+            r"\[Attribute:\s*(.*?)\]", re.DOTALL
+        )  # 匹配 Attribute: Name
+        description_pattern = re.compile(
+            r"\[Description:\s*(.*?)\]", re.DOTALL
+        )  # 匹配 Description: XXX
 
         # 提取匹配的内容
         primary_match = primary_pattern.search(file_content)
@@ -132,36 +157,46 @@ class LatexBaseTableBuilder:
         return result
 
     def save_attributes(self, attribute_name, description, file_name, type):
-        '''
+        """
         Save the attributes to the specified JSON file.
-        '''
+        """
         directory = os.path.dirname(file_name)
         if directory and not os.path.exists(directory):
             os.makedirs(directory)
         if not os.path.exists(file_name):
             data = []
         else:
-            with open(file_name, 'r') as file:
+            with open(file_name, "r") as file:
                 data = json.load(file)
         if type == 0:
-            new_entry = {"Primary Attribute Name": attribute_name, "Description": description}
+            new_entry = {
+                "Primary Attribute Name": attribute_name,
+                "Description": description,
+            }
             # 检查是否已经存在相同的Primary Attribute Name
-            exists = any(item.get("Primary Attribute Name") == attribute_name for item in data)
+            exists = any(
+                item.get("Primary Attribute Name") == attribute_name for item in data
+            )
         elif type == 1:
-            new_entry = {"Secondary Attribute Name": attribute_name, "Description": description}
+            new_entry = {
+                "Secondary Attribute Name": attribute_name,
+                "Description": description,
+            }
             # 检查是否已经存在相同的Primary Attribute Name
-            exists = any(item.get("Secondary Attribute Name") == attribute_name for item in data)
+            exists = any(
+                item.get("Secondary Attribute Name") == attribute_name for item in data
+            )
         # 如果不存在，添加到列表并写入文件
         if not exists:
             data.append(new_entry)
-            with open(file_name, 'w') as file:
+            with open(file_name, "w") as file:
                 json.dump(data, file, indent=4)
 
     # 处理文章的方法
     def process_article(self, result, secondary_attribute_path):
-        '''
+        """
         Load attribute data from the result.
-        '''
+        """
         # # 处理Primary Attribute Name
         # primary_attribute = result.get("Primary Attribute Name")
         # primary_description = result.get("Description1")
@@ -172,7 +207,9 @@ class LatexBaseTableBuilder:
         secondary_attribute = result.get("Secondary Attribute Name")
         secondary_description = result.get("Description")
         if secondary_attribute and secondary_description:
-            self.save_attributes(secondary_attribute, secondary_description, secondary_attribute_path, 1)
+            self.save_attributes(
+                secondary_attribute, secondary_description, secondary_attribute_path, 1
+            )
 
     def process_data(self, data_list):
         """
@@ -186,9 +223,9 @@ class LatexBaseTableBuilder:
         for item in data_list:
             if item is None:
                 continue
-            primary_attr = item.get('Primary Attribute Name')
-            secondary_attr_name = item.get('Secondary Attribute Name')
-            description = item.get('Description')
+            primary_attr = item.get("Primary Attribute Name")
+            secondary_attr_name = item.get("Secondary Attribute Name")
+            description = item.get("Description")
 
             # Skip if Secondary Attribute Name is duplicate
             if secondary_attr_name in seen_names:
@@ -198,17 +235,16 @@ class LatexBaseTableBuilder:
             seen_names.add(secondary_attr_name)
 
             # Add the secondary attribute to the list
-            secondary_attributes.append({
-                'Name': secondary_attr_name,
-                'Description': description
-            })
+            secondary_attributes.append(
+                {"Name": secondary_attr_name, "Description": description}
+            )
 
             # Set the Primary Attribute for the result dictionary (assuming all Primary Attribute Names are the same)
-            if 'Primary Attribute' not in result:
-                result['Primary Attribute'] = primary_attr
+            if "Primary Attribute" not in result:
+                result["Primary Attribute"] = primary_attr
 
         # Assign the Secondary Attributes list to the result dictionary
-        result['Secondary Attributes'] = secondary_attributes
+        result["Secondary Attributes"] = secondary_attributes
 
         return result
 
@@ -225,14 +261,16 @@ class LatexBaseTableBuilder:
             list: Updated list with 'Secondary Attribute Name' replaced where applicable.
         """
         # Create a reverse mapping of attributes to their categories
-        reverse_mapping = {attr: key for key, attrs in attribute_dict.items() for attr in attrs}
+        reverse_mapping = {
+            attr: key for key, attrs in attribute_dict.items() for attr in attrs
+        }
 
         # Process each dictionary in the data list
         for item in data_list:
-            secondary_name = item.get('Secondary Attribute Name')
+            secondary_name = item.get("Secondary Attribute Name")
             if secondary_name in reverse_mapping:
                 # Replace the secondary attribute name with the category
-                item['Secondary Attribute Name'] = reverse_mapping[secondary_name]
+                item["Secondary Attribute Name"] = reverse_mapping[secondary_name]
 
         return data_list
 
@@ -253,9 +291,9 @@ class LatexBaseTableBuilder:
             return None
 
     def data_convert(self, triplets):
-        '''
+        """
         Convert the raw data into the desired format.
-        '''
+        """
         # 初始化字典
         data = defaultdict(lambda: defaultdict(list))
 
@@ -268,11 +306,7 @@ class LatexBaseTableBuilder:
             data[category][feature].append(method)
 
         # 将默认字典转换为目标数据格式
-        final_data = {
-            "Category": [],
-            "Feature": [],
-            "Method": []
-        }
+        final_data = {"Category": [], "Feature": [], "Method": []}
 
         # 构建最终的字典
         for category, features in data.items():
@@ -287,21 +321,21 @@ class LatexBaseTableBuilder:
         return final_data
 
     def extract_cite_name(self, text: str) -> List[str]:
-        '''
+        """
         Extracts the cite name from a paragraph.
-        '''
+        """
         # 使用正则表达式匹配 \cite{xxx} 中的内容
         result = []
-        cite_names = re.findall(r'\\cite\{(.*?)\}', text)
+        cite_names = re.findall(r"\\cite\{(.*?)\}", text)
         for name in cite_names:
             if name not in result:
                 result.append(name)
         return result
 
     def load_table_data(self, dir_path):
-        '''
+        """
         Load the source files needed to generate the table.
-        '''
+        """
         data = []
         # 临时存储每个文件的读取结果
         temp_data = []
@@ -313,31 +347,33 @@ class LatexBaseTableBuilder:
         for filename in os.listdir(dir_path):
             if filename.endswith(".json"):
                 file_path = os.path.join(dir_path, filename)
-                with open(file_path, 'r', encoding='utf-8') as file:
+                with open(file_path, "r", encoding="utf-8") as file:
                     result = json.load(file)  # 将 JSON 文件内容读取为 Python 字典
                     # 读取数据并按顺序添加
                     dict = {}
-                    dict['Category'] = result['Primary Attribute Name']
-                    dict['Feature'] = result['Secondary Attribute Name']
-                    dict['Method'] = result['cite_name']
-                    dict['Order'] = result['order']  # 获取顺序
+                    dict["Category"] = result["Primary Attribute Name"]
+                    dict["Feature"] = result["Secondary Attribute Name"]
+                    dict["Method"] = result["cite_name"]
+                    dict["Order"] = result["order"]  # 获取顺序
                     temp_data.append(dict)
 
         # 按照 'Order' 排序数据
-        temp_data.sort(key=lambda x: x['Order'])  # 按 'Order' 字段排序
+        temp_data.sort(key=lambda x: x["Order"])  # 按 'Order' 字段排序
 
         # 将排序后的数据添加到最终结果列表中
         for item in temp_data:
-            data.append({
-                'Category': item['Category'],
-                'Feature': item['Feature'],
-                'Method': item['Method']
-            })
+            data.append(
+                {
+                    "Category": item["Category"],
+                    "Feature": item["Feature"],
+                    "Method": item["Method"],
+                }
+            )
 
         return data
 
     def extract_section_content(self, tex_file_path: str, section_name: str) -> str:
-        '''
+        """
         Extracts the content of a specific section from a .tex file.
 
         Args:
@@ -346,11 +382,14 @@ class LatexBaseTableBuilder:
 
         Returns:
             str: The content of the specified section.
-        '''
-        with open(tex_file_path, 'r', encoding='utf-8') as file:
+        """
+        with open(tex_file_path, "r", encoding="utf-8") as file:
             content = file.read()
         # 正则表达式匹配指定的section及其内容
-        pattern = re.compile(r'(\\section\{' + re.escape(section_name) + r'\}.*?)(?=\\section|$)', re.DOTALL)
+        pattern = re.compile(
+            r"(\\section\{" + re.escape(section_name) + r"\}.*?)(?=\\section|$)",
+            re.DOTALL,
+        )
         match = pattern.search(content)
         if match:
             return match.group(1).strip()
@@ -359,7 +398,7 @@ class LatexBaseTableBuilder:
             # return f"Section '{section_name}' not found."
 
     def extract_section_mainbody(self, tex_file_path: str, section_name: str) -> str:
-        '''
+        """
         Extracts the content of a specific section from a .tex file, excluding the section title and labels.
 
         Args:
@@ -368,14 +407,16 @@ class LatexBaseTableBuilder:
 
         Returns:
             str: The content of the specified section.
-        '''
-        with open(tex_file_path, 'r', encoding='utf-8') as file:
+        """
+        with open(tex_file_path, "r", encoding="utf-8") as file:
             content = file.read()
 
         # 正则表达式匹配指定的section正文，排除\section和\label部分
         pattern = re.compile(
-            r'\\section\{' + re.escape(section_name) + r'\}(?:\s*\\label\{.*?\})?\s*(.*?)(?=\\subsection|\\section|$)',
-            re.DOTALL
+            r"\\section\{"
+            + re.escape(section_name)
+            + r"\}(?:\s*\\label\{.*?\})?\s*(.*?)(?=\\subsection|\\section|$)",
+            re.DOTALL,
         )
 
         match = pattern.search(content)
@@ -384,8 +425,10 @@ class LatexBaseTableBuilder:
         else:
             return None
 
-    def extract_subsection_content(self, tex_file_path: str, subsection_name: str) -> str:
-        '''
+    def extract_subsection_content(
+        self, tex_file_path: str, subsection_name: str
+    ) -> str:
+        """
         Extracts the content of a specific section from a .tex file.
 
         Args:
@@ -394,12 +437,14 @@ class LatexBaseTableBuilder:
 
         Returns:
             str: The content of the specified section.
-        '''
-        with open(tex_file_path, 'r', encoding='utf-8') as file:
+        """
+        with open(tex_file_path, "r", encoding="utf-8") as file:
             content = file.read()
         # 正则表达式匹配指定的section及其内容
-        pattern = re.compile(rf'(\\subsection\{{{re.escape(subsection_name)}\}}.*?)(?=(\\section|\\subsection|$))',
-                             re.DOTALL)
+        pattern = re.compile(
+            rf"(\\subsection\{{{re.escape(subsection_name)}\}}.*?)(?=(\\section|\\subsection|$))",
+            re.DOTALL,
+        )
         match = pattern.search(content)
         if match:
             return match.group(1).strip()
@@ -442,28 +487,28 @@ class LatexBaseTableBuilder:
         data_list = load_meta_data(dir_path)
         benchmark_list = []
         for data in data_list:
-            if data['paper_type'] == 'benchmark':
+            if data["paper_type"] == "benchmark":
                 benchmark_list.append(data)
         # 提取当前召回数据的 bib_name 字段集合
-        current_bib_names = {item['bib_name'] for item in current_data}
+        current_bib_names = {item["bib_name"] for item in current_data}
 
         # 从数据库中过滤掉与当前已有数据重复的项，并提取指定字段
         remaining_data = []
         for item in benchmark_list:
             if (
-                    item['bib_name'] not in current_bib_names
-                    and item['attri'] is not None
-                    and len(item['attri']['idea']['benchmark abbreviation'].split()) < 2
-                    and self.convert_to_number(item['attri']['dataset']['size']) is not None
-                    and self.convert_to_number(item['attri']['dataset']['size']) < 10000000
+                item["bib_name"] not in current_bib_names
+                and item["attri"] is not None
+                and len(item["attri"]["idea"]["benchmark abbreviation"].split()) < 2
+                and self.convert_to_number(item["attri"]["dataset"]["size"]) is not None
+                and self.convert_to_number(item["attri"]["dataset"]["size"]) < 10000000
             ):
                 info = {
-                    'name': item['attri']['idea']['benchmark abbreviation'],
-                    'size': item['attri']['dataset']['size'],
-                    'domain': item['attri']['dataset']['domain'],
-                    'task format': item['attri']['dataset']['task format'],
-                    'metric': item['attri']['metrics']['metric name'],
-                    'bib_name': item['bib_name']
+                    "name": item["attri"]["idea"]["benchmark abbreviation"],
+                    "size": item["attri"]["dataset"]["size"],
+                    "domain": item["attri"]["dataset"]["domain"],
+                    "task format": item["attri"]["dataset"]["task format"],
+                    "metric": item["attri"]["metrics"]["metric name"],
+                    "bib_name": item["bib_name"],
                 }
                 remaining_data.append(info)
 
@@ -492,7 +537,7 @@ class LatexBaseTableBuilder:
         match_l = list(re.finditer(pattern, tex))
         res = []
         for i in range(len(match_l) - 1):
-            section_tex = tex[match_l[i].start():match_l[i + 1].start()]
+            section_tex = tex[match_l[i].start() : match_l[i + 1].start()]
             res.append(section_tex)
         return res
 
@@ -502,14 +547,20 @@ class LatexBaseTableBuilder:
             file.write(latex_code)
 
     def generate_description(self, latex_code, content):
-        prompt = load_prompt(f"{BASE_DIR}/resources/LLM/prompts/latex_table_builder/Table_description.txt"
-                             , Latex=latex_code,
-                             Content=content)
-        result = self.chat_agent.remote_chat(text_content=prompt, model=ADVANCED_CHATAGENT_MODEL)
+        prompt = load_prompt(
+            f"{BASE_DIR}/resources/LLM/prompts/latex_table_builder/Table_description.txt",
+            Latex=latex_code,
+            Content=content,
+        )
+        result = self.chat_agent.remote_chat(
+            text_content=prompt, model=ADVANCED_CHATAGENT_MODEL
+        )
         result = self.extract_and_convert(result)
         if result is not None:
-            caption = result.get('caption')  # 如果没有'caption'，返回 None
-            introductory_sentence = result.get('introductory sentence')  # 如果没有'introductory sentence'，返回 None
+            caption = result.get("caption")  # 如果没有'caption'，返回 None
+            introductory_sentence = result.get(
+                "introductory sentence"
+            )  # 如果没有'introductory sentence'，返回 None
             return caption, introductory_sentence
         return None, None
 
@@ -592,14 +643,14 @@ class LatexBaseTableBuilder:
 
     def convert_to_number(self, number_str):
         """
-            Convert a number string, e.g., "10000000" or "1,000,000", to an integer.
+        Convert a number string, e.g., "10000000" or "1,000,000", to an integer.
 
-            Args:
-                number_str (str): The string representation of the number.
+        Args:
+            number_str (str): The string representation of the number.
 
-            Returns:
-                int: The integer value of the number.
-            """
+        Returns:
+            int: The integer value of the number.
+        """
         try:
             # Remove any commas in the string
             cleaned_str = number_str.replace(",", "")
@@ -627,21 +678,21 @@ class LatexBaseTableBuilder:
         return section_titles, subsection_titles
 
     def get_sections(self, survey_path: str) -> List[str]:
-        '''
+        """
         Get the section names of the survey.
-        '''
+        """
         tex = open(survey_path, "r").read()
         pattern = r"\\section{"
         match_l = list(re.finditer(pattern, tex))
         res = []
         for i in range(len(match_l) - 1):
-            section_tex = tex[match_l[i].start():match_l[i + 1].start()]
+            section_tex = tex[match_l[i].start() : match_l[i + 1].start()]
             res.append(section_tex)
         return res
 
     def get_title(self, section: str) -> str:
-        '''
+        """
         Get the title of the section.
-        '''
-        title = re.findall(r'\\section\{([^}]+)\}', section)[0]
+        """
+        title = re.findall(r"\\section\{([^}]+)\}", section)[0]
         return title

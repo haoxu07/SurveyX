@@ -5,7 +5,11 @@ import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_distances
 
-from src.configs.config import BASE_DIR, DEFAULT_ITERATION_LIMIT, DEFAULT_PAPER_POOL_LIMIT
+from src.configs.config import (
+    BASE_DIR,
+    DEFAULT_ITERATION_LIMIT,
+    DEFAULT_PAPER_POOL_LIMIT,
+)
 from src.configs.logger import get_logger
 from src.models.LLM import ChatAgent
 from src.models.LLM import EmbedAgent
@@ -24,7 +28,7 @@ class PaperRecaller:
 
     def __init__(
         self,
-        topic: str, 
+        topic: str,
         iteration_limit: int = DEFAULT_ITERATION_LIMIT,
         paper_pool_limit: int = DEFAULT_PAPER_POOL_LIMIT,
         enable_cache: bool = DEFAULT_DATA_FETCHER_ENABLE_CACHE,
@@ -48,13 +52,18 @@ class PaperRecaller:
 
         self.paper_pool: List[Dict] = []
         self.keyword_pool: List[str] = []
-        self.existing_keyword_embeddings: np.ndarray = np.array(self.embed_agent.batch_local_embed([topic])).astype(float)
+        self.existing_keyword_embeddings: np.ndarray = np.array(
+            self.embed_agent.batch_local_embed([topic])
+        ).astype(float)
 
         if not isinstance(self.existing_keyword_embeddings, np.ndarray):
-            self.existing_keyword_embeddings = np.array([self.existing_keyword_embeddings])
+            self.existing_keyword_embeddings = np.array(
+                [self.existing_keyword_embeddings]
+            )
 
-
-    def _search_papers(self, keyword: str, page: str, time_s: str, time_e: str) -> List[Dict]:
+    def _search_papers(
+        self, keyword: str, page: str, time_s: str, time_e: str
+    ) -> List[Dict]:
         """
         Search for papers using Google Scholar and arXiv.
 
@@ -64,14 +73,18 @@ class PaperRecaller:
         Returns:
             List[Dict]: A list of paper dictionaries.
         """
-        logger.debug(f"Searching papers on google: key word={keyword}, page={page}, time_s={time_s}, time_e={time_e}.")
+        logger.debug(
+            f"Searching papers on google: key word={keyword}, page={page}, time_s={time_s}, time_e={time_e}."
+        )
         google_papers = self.data_fetcher.search_on_google(
             key_words=keyword, page=page, time_s=time_s, time_e=time_e
         )
         logger.debug(f"Searching papers on arxiv: key word={keyword}.")
-        arxiv_papers = self.data_fetcher.search_on_arxiv(key_words=keyword) 
+        arxiv_papers = self.data_fetcher.search_on_arxiv(key_words=keyword)
         combined_papers = google_papers + arxiv_papers
-        logger.debug(f"Total papers retrieved from google scholar & arxiv: {len(combined_papers)}")
+        logger.debug(
+            f"Total papers retrieved from google scholar & arxiv: {len(combined_papers)}"
+        )
         return combined_papers
 
     def _clean_paper_pool(self, new_papers: List[Dict]):
@@ -91,8 +104,7 @@ class PaperRecaller:
         # Deduplicate based on _id
         existing_ids = {paper["_id"] for paper in self.paper_pool}
         unique_papers = [
-            paper for paper in valid_papers
-            if paper["_id"] not in existing_ids
+            paper for paper in valid_papers if paper["_id"] not in existing_ids
         ]
         logger.debug(f"Papers after deduplication: {len(unique_papers)}")
 
@@ -113,15 +125,22 @@ class PaperRecaller:
             return
 
         # Extract abstracts for embedding
-        texts = [("Title: "+paper["title"]+"\nAbstract: "+paper["abstract"]) for paper in new_papers]
+        texts = [
+            ("Title: " + paper["title"] + "\nAbstract: " + paper["abstract"])
+            for paper in new_papers
+        ]
         embeddings = self.embed_agent.batch_local_embed(texts)
 
         # Assign embeddings or remove papers with failed embeddings
         for paper, embedding in zip(new_papers, embeddings):
-            if isinstance(embedding, list) and embedding:   # filter out "no response" and []
+            if (
+                isinstance(embedding, list) and embedding
+            ):  # filter out "no response" and []
                 paper["embedding"] = embedding
             else:
-                logger.warning(f"Embedding failed for paper: '{paper.get('title', 'No Title')}'. Removing from pool.")
+                logger.warning(
+                    f"Embedding failed for paper: '{paper.get('title', 'No Title')}'. Removing from pool."
+                )
                 self.paper_pool.remove(paper)
 
     def _cluster_papers(self) -> List[List[Dict]]:
@@ -171,14 +190,24 @@ class PaperRecaller:
             sampled_papers = random.sample(cluster, min(15, len(cluster)))
             titles = [paper["title"] for paper in sampled_papers]
             abstracts = [paper["abstract"] for paper in sampled_papers]
-            if len(self.paper_pool) >= 1000: combined_text = "\n".join([f"Title: {t}\n" for t in titles])
-            else: combined_text = "\n".join([f"Title: {t}\nAbstract: {a}" for t, a in zip(titles, abstracts)])
-            exclude_keywords = ', '.join(self.keyword_pool)
-            prompt = load_prompt(f"{BASE_DIR}/resources/LLM/prompts/preprocessor/PaperRecall_gen_key_word.md", combined_text=combined_text, exclude_keywords=exclude_keywords)
+            if len(self.paper_pool) >= 1000:
+                combined_text = "\n".join([f"Title: {t}\n" for t in titles])
+            else:
+                combined_text = "\n".join(
+                    [f"Title: {t}\nAbstract: {a}" for t, a in zip(titles, abstracts)]
+                )
+            exclude_keywords = ", ".join(self.keyword_pool)
+            prompt = load_prompt(
+                f"{BASE_DIR}/resources/LLM/prompts/preprocessor/PaperRecall_gen_key_word.md",
+                combined_text=combined_text,
+                exclude_keywords=exclude_keywords,
+            )
             prompts.append(prompt)
 
         generated_responses = self.chat_agent.batch_remote_chat(prompts)
-        generated_keywords = [response.strip() for response in generated_responses if response.strip()]
+        generated_keywords = [
+            response.strip() for response in generated_responses if response.strip()
+        ]
 
         logger.debug(f"Generated keywords: {generated_keywords}")
         return generated_keywords
@@ -200,10 +229,14 @@ class PaperRecaller:
             return ""
 
         # Embed the generated keywords
-        keyword_embeddings = np.array(self.embed_agent.batch_local_embed(generated_keywords)).astype(float)
+        keyword_embeddings = np.array(
+            self.embed_agent.batch_local_embed(generated_keywords)
+        ).astype(float)
 
         # Calculate distances to existing keywords (return a cosine sim matrix given two sets of vectors)
-        distances = cosine_distances(keyword_embeddings, self.existing_keyword_embeddings)
+        distances = cosine_distances(
+            keyword_embeddings, self.existing_keyword_embeddings
+        )
 
         # Double the weight for the distance to the initial keyword.
         weights = np.ones(self.existing_keyword_embeddings.shape[0])
@@ -219,7 +252,9 @@ class PaperRecaller:
         # Calculate average rank
         combined_ranks = []
         for i in range(len(generated_keywords)):
-            combined_rank = (np.where(avg_rank == i)[0][0] + np.where(max_rank == i)[0][0]) / 2
+            combined_rank = (
+                np.where(avg_rank == i)[0][0] + np.where(max_rank == i)[0][0]
+            ) / 2
             combined_ranks.append(combined_rank)
 
         # Select the keyword with the smallest combined rank
@@ -228,9 +263,13 @@ class PaperRecaller:
 
         # Embed and add to existing_keyword_embeddings
         new_embedding = keyword_embeddings[selected_index].reshape(1, -1)
-        self.existing_keyword_embeddings = np.vstack([self.existing_keyword_embeddings, new_embedding])
+        self.existing_keyword_embeddings = np.vstack(
+            [self.existing_keyword_embeddings, new_embedding]
+        )
 
-        logger.debug(f"Selected new keyword: '{new_keyword}' with index {selected_index}")
+        logger.debug(
+            f"Selected new keyword: '{new_keyword}' with index {selected_index}"
+        )
         return new_keyword
 
     def deal_init_keywords(self, key_words: str, page: str, time_s: str, time_e: str):
@@ -242,13 +281,16 @@ class PaperRecaller:
             self.keyword_pool.append(kw)
 
             if len(self.paper_pool) >= self.paper_pool_limit:
-                logger.info(f"Reached paper pool limit of {self.paper_pool_limit}. Stopping recalling.")
+                logger.info(
+                    f"Reached paper pool limit of {self.paper_pool_limit}. Stopping recalling."
+                )
                 break
 
         logger.info(f"Initialized keywords retrieved  {len(self.paper_pool)} papers.")
 
-
-    def recall_papers_iterative(self, key_word: str, page: str, time_s: str, time_e: str):
+    def recall_papers_iterative(
+        self, key_word: str, page: str, time_s: str, time_e: str
+    ):
         """
         Perform iterative paper recall and processing.
         """
@@ -286,13 +328,20 @@ class PaperRecaller:
             logger.info(f"Paper pool size after cleaning: {len(self.paper_pool)}")
 
             if len(self.paper_pool) >= self.paper_pool_limit:
-                logger.info(f"Reached paper pool limit of {self.paper_pool_limit}. Stopping recalling.")
+                logger.info(
+                    f"Reached paper pool limit of {self.paper_pool_limit}. Stopping recalling."
+                )
                 break
 
-        logger.info(f"Paper recall iterations completed. Total papers in pool: {len(self.paper_pool)}")
+        logger.info(
+            f"Paper recall iterations completed. Total papers in pool: {len(self.paper_pool)}"
+        )
         return self.paper_pool
+
 
 # python -m src.modules.preprocessor.paper_recaller
 if __name__ == "__main__":
     pr = PaperRecaller()
-    papers = pr.recall_papers_iterative("battery electrolyte formulation", "1", "2016", "2025")
+    papers = pr.recall_papers_iterative(
+        "battery electrolyte formulation", "1", "2016", "2025"
+    )

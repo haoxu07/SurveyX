@@ -20,6 +20,7 @@ from src.modules.latex_handler.latex_text_builder import LatexTextBuilder
 
 logger = get_logger("src.modules.generator.LatexGenerator")
 
+
 class LatexGenerator:
     def __init__(self, task_id: str, **kwargs):
         task_id = load_latest_task_id() if task_id is None else task_id
@@ -29,10 +30,16 @@ class LatexGenerator:
 
         # for text builder
         self.init_text_tex_path = Path(f"{RESOURCE_DIR}/latex/survey.ini.tex")
-        self.mainbody_tex_path = Path(f"{OUTPUT_DIR}/{str(self.task_id)}/tmp/mainbody_post_refined.tex")
-        self.post_refined_mainbody_tex_path = Path(f"{OUTPUT_DIR}/{str(self.task_id)}/tmp/mainbody_post_refined.tex")
+        self.mainbody_tex_path = Path(
+            f"{OUTPUT_DIR}/{str(self.task_id)}/tmp/mainbody_post_refined.tex"
+        )
+        self.post_refined_mainbody_tex_path = Path(
+            f"{OUTPUT_DIR}/{str(self.task_id)}/tmp/mainbody_post_refined.tex"
+        )
         self.abstract_path = Path(f"{OUTPUT_DIR}/{str(self.task_id)}/tmp/abstract.tex")
-        self.survey_tex_path = Path(f"{OUTPUT_DIR}/{str(self.task_id)}/latex/survey.tex")
+        self.survey_tex_path = Path(
+            f"{OUTPUT_DIR}/{str(self.task_id)}/latex/survey.tex"
+        )
 
         # init builders
         # -- text
@@ -80,8 +87,15 @@ class LatexGenerator:
 
         # 执行 latexmk 命令，将输出重定向到 compile.log
         with open("compile.log", "w") as output_file:
-            logger.debug(f'Running "latexmk -pdf -interaction=nonstopmode -f survey.tex". The compile.log is at {latex_dir / "compile.log"}')
-            subprocess.run("latexmk -pdf -interaction=nonstopmode -f survey.tex", shell=True, stdout=output_file, stderr=output_file)
+            logger.debug(
+                f'Running "latexmk -pdf -interaction=nonstopmode -f survey.tex". The compile.log is at {latex_dir / "compile.log"}'
+            )
+            subprocess.run(
+                "latexmk -pdf -interaction=nonstopmode -f survey.tex",
+                shell=True,
+                stdout=output_file,
+                stderr=output_file,
+            )
 
         # 执行 latexmk -c 删除中间文件
         with open("compile.log", "a") as output_file:
@@ -95,10 +109,11 @@ class LatexGenerator:
 
         # 将生成的 survey.pdf 移动到上一级目录
         subprocess.run("mv survey.pdf ../", shell=True)
-        self.add_watermark(task_dir / "survey.pdf", task_dir / "survey_wtmk.pdf", water_mark_pdf_path)
+        self.add_watermark(
+            task_dir / "survey.pdf", task_dir / "survey_wtmk.pdf", water_mark_pdf_path
+        )
 
         time_monitor.end("compile latex")
-
 
     def generate_full_survey(self):
         # make survey.tex
@@ -111,13 +126,12 @@ class LatexGenerator:
         return tex_content
 
 
-
 # python -m src.models.generator.latex_generator
 if __name__ == "__main__":
     # task_id = load_latest_task_id()
     task_id = "ref1"
     print(f"task_id: {task_id}")
     latex_generator = LatexGenerator(task_id=task_id)
-    
+
     latex_generator.generate_full_survey()
     latex_generator.compile_single_survey()

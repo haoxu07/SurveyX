@@ -7,7 +7,7 @@ from src.modules.utils import load_file_as_string
 
 
 class Base:
-    def __init__(self, task_id: str|None = None):
+    def __init__(self, task_id: str | None = None):
         tmp_config = Base.load_tmp_config(task_id)
 
         self.task_id = task_id

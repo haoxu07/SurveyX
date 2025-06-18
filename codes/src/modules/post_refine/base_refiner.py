@@ -17,8 +17,9 @@ from src.modules.utils import load_papers
 
 logger = get_logger("src.modules.post_refine.BaseRefiner")
 
+
 class BaseRefiner:
-    def __init__(self, task_id: str=None, **kwargs) -> None:
+    def __init__(self, task_id: str = None, **kwargs) -> None:
         task_id = load_latest_task_id() if task_id is None else task_id
         assert task_id is not None
         self.task_id = task_id
@@ -40,13 +41,14 @@ class BaseRefiner:
         else:
             self.chat_agent = ChatAgent(TokenMonitor(task_id, "post refine"))
 
-    def load_papers(self, paper_dir_path_or_papers: Union[Path, List[Dict]]) -> list[dict]:
+    def load_papers(
+        self, paper_dir_path_or_papers: Union[Path, List[Dict]]
+    ) -> list[dict]:
         return load_papers(paper_dir_path_or_papers=paper_dir_path_or_papers)
 
     def load_survey_sections(self, mainbody_path: Path) -> list[Paragraph]:
         paragraph_l = Paragraph.from_mainbody_path(mainbody_path)
         return paragraph_l
-
 
 
 if __name__ == "__main__":

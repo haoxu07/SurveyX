@@ -7,17 +7,23 @@ import requests
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from tqdm import tqdm
 
-from src.configs.config import (DEFAULT_EMBED_LOCAL_MODEL, DEFAULT_EMBED_ONLINE_MODEL,
-                                EMBED_REMOTE_URL, EMBED_TOKEN)
+from src.configs.config import (
+    DEFAULT_EMBED_LOCAL_MODEL,
+    DEFAULT_EMBED_ONLINE_MODEL,
+    EMBED_REMOTE_URL,
+    EMBED_TOKEN,
+)
 from src.configs.logger import get_logger
 
 logger = get_logger("src.models.LLM.EmbedAgent")
+
 
 class EmbedAgent:
     """
     A class to handle remote text embedding using a specified API.
     Supports multi-threading for batch processing.
     """
+
     def __init__(self, token=EMBED_TOKEN, remote_url=EMBED_REMOTE_URL) -> None:
         """
         Initialize the EmbedAgent.
@@ -30,15 +36,27 @@ class EmbedAgent:
         self.token = token
         self.header = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {token}"
+            "Authorization": f"Bearer {token}",
         }
         try:
-            self.local_embedding_model = HuggingFaceEmbedding(model_name=DEFAULT_EMBED_ONLINE_MODEL)
+            self.local_embedding_model = HuggingFaceEmbedding(
+                model_name=DEFAULT_EMBED_ONLINE_MODEL
+            )
         except Exception as e:
-            logger.info(f"{e}\nFailed to load embedding model {DEFAULT_EMBED_ONLINE_MODEL}, try to use local model {DEFAULT_EMBED_LOCAL_MODEL}.")
-            self.local_embedding_model = HuggingFaceEmbedding(model_name=DEFAULT_EMBED_LOCAL_MODEL)
+            logger.info(
+                f"{e}\nFailed to load embedding model {DEFAULT_EMBED_ONLINE_MODEL}, try to use local model {DEFAULT_EMBED_LOCAL_MODEL}."
+            )
+            self.local_embedding_model = HuggingFaceEmbedding(
+                model_name=DEFAULT_EMBED_LOCAL_MODEL
+            )
 
-    def remote_embed(self, text: str, max_try: int = 15, debug: bool = False, model: str = "BAAI/bge-m3") -> list:
+    def remote_embed(
+        self,
+        text: str,
+        max_try: int = 15,
+        debug: bool = False,
+        model: str = "BAAI/bge-m3",
+    ) -> list:
         """
         Embed text using the remote API.
 
@@ -52,11 +70,9 @@ class EmbedAgent:
             list: Embedding vector or error message.
         """
         url = self.remote_url
-        json_data = json.dumps({
-            "model": model,
-            "input": text,
-            "encoding_format": "float"
-        })
+        json_data = json.dumps(
+            {"model": model, "input": text, "encoding_format": "float"}
+        )
 
         try:
             response = requests.post(url, headers=self.header, data=json_data)
@@ -112,7 +128,9 @@ class EmbedAgent:
         embedding = self.remote_embed(text)
         return index, embedding
 
-    def batch_remote_embed(self, texts: list[str], worker: int = 10, desc: str = "Batch Embedding...") -> list:
+    def batch_remote_embed(
+        self, texts: list[str], worker: int = 10, desc: str = "Batch Embedding..."
+    ) -> list:
         """
         Batch process text embeddings using multi-threading.
 
@@ -126,18 +144,28 @@ class EmbedAgent:
         """
         embeddings = ["no response"] * len(texts)
         with ThreadPoolExecutor(max_workers=worker) as executor:
-            future_l = [executor.submit(self.__remote_embed_task, i, texts[i]) for i in range(len(texts))]
-            for future in tqdm(as_completed(future_l), desc=desc, total=len(future_l), dynamic_ncols=True):
+            future_l = [
+                executor.submit(self.__remote_embed_task, i, texts[i])
+                for i in range(len(texts))
+            ]
+            for future in tqdm(
+                as_completed(future_l),
+                desc=desc,
+                total=len(future_l),
+                dynamic_ncols=True,
+            ):
                 i, embedding = future.result()
                 embeddings[i] = embedding
         return embeddings
-    
+
     def local_embed(self, text: str) -> list[float]:
         embedding = self.local_embedding_model.get_text_embedding(text)
         return embedding
-    
+
     def batch_local_embed(self, text_l: list[str]) -> list[list[float]]:
-        embed_documents = self.local_embedding_model.get_text_embedding_batch(text_l, show_progress=True)
+        embed_documents = self.local_embedding_model.get_text_embedding_batch(
+            text_l, show_progress=True
+        )
         return embed_documents
 
 
@@ -147,6 +175,6 @@ if __name__ == "__main__":
     embedding = embed_agent.batch_remote_embed(text_list)
     print(embedding)
     logger.info("Embedding complete.")
-    
+
     embedding = embed_agent.batch_local_embed(text_list)
     print(embedding)

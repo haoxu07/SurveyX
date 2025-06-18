@@ -2,6 +2,7 @@
 @reference:
 1.发送本地图片： https://www.cnblogs.com/Vicrooor/p/18227547
 """
+
 import fcntl
 import requests
 import json
@@ -9,16 +10,23 @@ import pickle
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 
-from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
+from tenacity import (
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
 from tqdm import tqdm
 from pathlib import Path
 
-from src.configs.config import (REMOTE_URL,
-                                LOCAL_URL,
-                                TOKEN,
-                                BASE_DIR,
-                                DEFAULT_CHATAGENT_MODEL,
-                                CHAT_AGENT_WORKERS)
+from src.configs.config import (
+    REMOTE_URL,
+    LOCAL_URL,
+    TOKEN,
+    BASE_DIR,
+    DEFAULT_CHATAGENT_MODEL,
+    CHAT_AGENT_WORKERS,
+)
 from src.configs.constants import OUTPUT_DIR
 
 from src.configs.logger import get_logger
@@ -27,6 +35,7 @@ from src.models.monitor.token_monitor import TokenMonitor
 
 logger = get_logger("src.models.LLM.ChatAgent")
 logger.debug(f"ChatAgent pid={os.getpid()}")
+
 
 class ChatAgent:
     Cost_file = Path(f"{OUTPUT_DIR}/tmp/cost.txt")
@@ -44,9 +53,9 @@ class ChatAgent:
         self.remote_url = remote_url
         self.token = token
         self.local_url = local_url
-        self.header={
+        self.header = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {token}"
+            "Authorization": f"Bearer {token}",
         }
         self.batch_workers = CHAT_AGENT_WORKERS
         self.token_monitor = token_monitor
@@ -69,27 +78,27 @@ class ChatAgent:
         url = self.remote_url
         header = self.header
         # text content
-        messages = [{
-                "role": "user",
-                "content": text_content
-            }]
+        messages = [{"role": "user", "content": text_content}]
         # insert image urls ----
-        if image_urls is not None and isinstance(image_urls, list) and len(image_urls) > 0:
+        if (
+            image_urls is not None
+            and isinstance(image_urls, list)
+            and len(image_urls) > 0
+        ):
             image_url_frame = []
             for url_ in image_urls:
                 image_url_frame.append(
-                    {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": url_
-                        }
-                    }
+                    {"type": "image_url", "image_url": {"url": url_}}
                 )
             image_message_frame = {"role": "user", "content": image_url_frame}
             messages.append(image_message_frame)
 
         # insert local images ----
-        if local_images is not None and isinstance(local_images, list) and len(local_images) > 0:
+        if (
+            local_images is not None
+            and isinstance(local_images, list)
+            and len(local_images) > 0
+        ):
             local_image_frame = []
             for local_image in local_images:
                 local_encoded_image = encode_image(local_image)
@@ -98,17 +107,13 @@ class ChatAgent:
                         "type": "image_url",
                         "image_url": {
                             "url": f"data:image/jpeg;base64,{local_encoded_image}"
-                        }
+                        },
                     }
                 )
             image_message_frame = {"role": "user", "content": local_image_frame}
             messages.append(image_message_frame)
 
-        payload = {
-            "model": model,
-            "messages": messages,
-            "temperature": temperature
-        }
+        payload = {"model": model, "messages": messages, "temperature": temperature}
 
         response = requests.post(url, headers=header, json=payload)
 
@@ -186,18 +191,33 @@ class ChatAgent:
         # 创建线程池
         with ThreadPoolExecutor(max_workers=workers) as executor:
             # 提交任务
-            future_l = [executor.submit(self.__remote_chat, i, prompt_l[i], temperature) for i in range(len(prompt_l))]
+            future_l = [
+                executor.submit(self.__remote_chat, i, prompt_l[i], temperature)
+                for i in range(len(prompt_l))
+            ]
             # 领取任务结果
-            res_l= ["no response"] * len(prompt_l)
-            for future in tqdm(as_completed(future_l), desc=desc, total=len(future_l), dynamic_ncols=True):
+            res_l = ["no response"] * len(prompt_l)
+            for future in tqdm(
+                as_completed(future_l),
+                desc=desc,
+                total=len(future_l),
+                dynamic_ncols=True,
+            ):
                 i, resp = future.result()
                 res_l[i] = resp
         return res_l
 
     @classmethod
-    def update_record(cls, status_code:int, response_code:int, request:str, response:str):
+    def update_record(
+        cls, status_code: int, response_code: int, request: str, response: str
+    ):
         "维护记录文件"
-        content = f"{status_code}{cls.Record_splitter}{response_code}{cls.Record_splitter}{request[:cls.Record_show_length]}{cls.Record_splitter}{response[:cls.Record_show_length]}".replace("\n", "") + "\n"
+        content = (
+            f"{status_code}{cls.Record_splitter}{response_code}{cls.Record_splitter}{request[: cls.Record_show_length]}{cls.Record_splitter}{response[: cls.Record_show_length]}".replace(
+                "\n", ""
+            )
+            + "\n"
+        )
         # 检查文件是否存在
         if not os.path.exists(cls.Request_stats_file):
             parent_dir = Path(cls.Request_stats_file).parent
@@ -205,7 +225,9 @@ class ChatAgent:
             with open(cls.Request_stats_file, "w", encoding="utf-8") as fw:
                 fcntl.flock(fw, fcntl.LOCK_EX)  # 加锁
                 fw.write(content)
-                logger.info(f"record file {cls.Request_stats_file} did not exist, created and initialized with 0.0")
+                logger.info(
+                    f"record file {cls.Request_stats_file} did not exist, created and initialized with 0.0"
+                )
                 fcntl.flock(fw, fcntl.LOCK_UN)
         # 更新开销总计
         try:
@@ -225,23 +247,23 @@ class ChatAgent:
             You are a helpful AI assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
             {}<|eot_id|><|start_header_id|>assistant<|end_header_id|>""".format(query)
 
-        payload = json.dumps({
-            "prompt": query,
-            "temperature": 1.0,
-            "max_tokens": 102400,
-            "n": 1,
-            # 可选的参数在这里：https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
-        })
-        headers = {
-            'Content-Type': 'application/json'
-        }
+        payload = json.dumps(
+            {
+                "prompt": query,
+                "temperature": 1.0,
+                "max_tokens": 102400,
+                "n": 1,
+                # 可选的参数在这里：https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
+            }
+        )
+        headers = {"Content-Type": "application/json"}
         res = requests.request("POST", self.local_url, headers=headers, data=payload)
         if res.status_code != 200:
             logger.info("chat response code: {}".format(res.status_code), query[:20])
             return "chat response code: {}".format(res.status_code)
         if debug:
             return res
-        return res.json()['text'][0].replace(query, '')
+        return res.json()["text"][0].replace(query, "")
 
     def __local_chat(self, index, query):
         return index, self.local_chat(query, debug=True)
@@ -252,9 +274,12 @@ class ChatAgent:
         """
         with ThreadPoolExecutor(max_workers=worker) as executor:
             # 提交任务
-            future_l = [executor.submit(self.__local_chat, i, query_l[i]) for i in range(len(query_l))]
+            future_l = [
+                executor.submit(self.__local_chat, i, query_l[i])
+                for i in range(len(query_l))
+            ]
             # 领取任务结果
-            res_l= ["no response"] * len(query_l)
+            res_l = ["no response"] * len(query_l)
             for future in tqdm(as_completed(future_l), desc=desc, total=len(future_l)):
                 i, resp = future.result()
                 res_l[i] = resp
@@ -272,7 +297,7 @@ class ChatAgent:
                 elements = line.strip().split(ChatAgent.Record_splitter)
                 succ_count += int(elements[0])
                 total_count += 1
-            logger.info(f"请求成功率：{round(succ_count/total_count*100, 2)}%")
+            logger.info(f"请求成功率：{round(succ_count / total_count * 100, 2)}%")
 
     @staticmethod
     def clean_request_stats():
@@ -280,7 +305,8 @@ class ChatAgent:
         if stats_file.exists():
             logger.info(f"remove {stats_file}.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     agent = ChatAgent()
     text_content = "图片里面有什么"
 
@@ -292,7 +318,12 @@ if __name__ == '__main__':
     # print(result)
 
     local_images = [f"{BASE_DIR}/resources/dummy_data/figs/dog_and_girl.jpeg"]
-    result = agent.remote_chat( text_content=text_content, local_images=local_images, temperature=0.5, model="gpt-4o")
+    result = agent.remote_chat(
+        text_content=text_content,
+        local_images=local_images,
+        temperature=0.5,
+        model="gpt-4o",
+    )
     print(result)
 
     ChatAgent.show_request_stats()

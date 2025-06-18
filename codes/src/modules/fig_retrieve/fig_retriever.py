@@ -13,12 +13,14 @@ import requests
 
 from src.configs.constants import OUTPUT_DIR
 from src.configs.logger import get_logger
-from src.configs.config import (FIG_RETRIEVE_Authorization,
-                                FIG_RETRIEVE_TOKEN,
-                                FIG_CHUNK_SIZE,
-                                MATCH_TOPK,
-                                FIG_RETRIEVE_URL,
-                                ENHANCED_FIG_RETRIEVE_URL)
+from src.configs.config import (
+    FIG_RETRIEVE_Authorization,
+    FIG_RETRIEVE_TOKEN,
+    FIG_CHUNK_SIZE,
+    MATCH_TOPK,
+    FIG_RETRIEVE_URL,
+    ENHANCED_FIG_RETRIEVE_URL,
+)
 from src.configs.constants import OUTPUT_DIR
 
 logger = get_logger("src.modules.fig_retrieve.fig_retriever")
@@ -35,40 +37,56 @@ class FigRetriever(object):
         self.is_debug = is_debug
         if self.is_debug:
             self.fig_retrieve_debug_dir.mkdir(exist_ok=True, parents=True)
-            logger.debug(f"FigRetriever is using debug mode, create the directory of {self.fig_retrieve_debug_dir}.")
+            logger.debug(
+                f"FigRetriever is using debug mode, create the directory of {self.fig_retrieve_debug_dir}."
+            )
 
-    def wrap_data_1(self, query_text: str, image_list: list, match_topk: int = MATCH_TOPK):
+    def wrap_data_1(
+        self, query_text: str, image_list: list, match_topk: int = MATCH_TOPK
+    ):
         data = {
-            'image_list': image_list,
-            'query_text': query_text,
-            'match_topk': match_topk
+            "image_list": image_list,
+            "query_text": query_text,
+            "match_topk": match_topk,
         }
         return data
 
-    def wrap_data_2(self, query_text: str, figure_linkes: list, paper_ids: list, sources: list,
-                    match_topk: int = MATCH_TOPK):
+    def wrap_data_2(
+        self,
+        query_text: str,
+        figure_linkes: list,
+        paper_ids: list,
+        sources: list,
+        match_topk: int = MATCH_TOPK,
+    ):
         data = {
-            'pic_urls': figure_linkes,
-            'paper_ids': paper_ids,
-            'sources': sources,
-            'query': query_text,
-            'match_topk': match_topk
+            "pic_urls": figure_linkes,
+            "paper_ids": paper_ids,
+            "sources": sources,
+            "query": query_text,
+            "match_topk": match_topk,
         }
         return data
 
-    def retrieve_relevant_images(self, image_data_dict: dict, request_url: str = FIG_RETRIEVE_URL):
+    def retrieve_relevant_images(
+        self, image_data_dict: dict, request_url: str = FIG_RETRIEVE_URL
+    ):
         # 开始时间
         start_time = datetime.now()
 
-        response = requests.post(request_url,
-                                 json=image_data_dict,
-                                 headers={"Authorization": self.authorization, "token": self.token})
+        response = requests.post(
+            request_url,
+            json=image_data_dict,
+            headers={"Authorization": self.authorization, "token": self.token},
+        )
         results = response.json()
         if request_url == self.fig_retrieve_url:
             figure_list = results["figure_list"]
         elif request_url == self.enhanced_fig_retrieve_url:
             if "topk_entries" not in results:
-                logger.error(f"topk_entries not in topk_entries； request_url: {request_url}; image_data_dict:{image_data_dict}; results {results}")
+                logger.error(
+                    f"topk_entries not in topk_entries； request_url: {request_url}; image_data_dict:{image_data_dict}; results {results}"
+                )
             try:
                 for one in results["topk_entries"]:
                     one["figure_desc"] = one["caption"]
@@ -87,7 +105,9 @@ class FigRetriever(object):
                     )
             except Exception as e:
                 tb_str = traceback.format_exc()
-                logger.error(f"An error occurred: {e}; The traceback: {tb_str}； results: {results} ")
+                logger.error(
+                    f"An error occurred: {e}; The traceback: {tb_str}； results: {results} "
+                )
                 figure_list = []
                 return figure_list
         else:
@@ -107,7 +127,9 @@ class FigRetriever(object):
         minutes, seconds = divmod(remainder, 60)
 
         # 格式化输出时间
-        logger.debug(f"Time taken for retrieve_relevant_images: {hours} hours, {minutes} minutes, {seconds} seconds")
+        logger.debug(
+            f"Time taken for retrieve_relevant_images: {hours} hours, {minutes} minutes, {seconds} seconds"
+        )
 
         return figure_list
 
@@ -115,9 +137,15 @@ class FigRetriever(object):
         parsed_url = urlparse(fig_link)
         return parsed_url.path.strip().split("/")[-1]
 
-    def download_figs(self, figure_list: list, figs_dir: Path = None, chunk_size: int = FIG_CHUNK_SIZE):
+    def download_figs(
+        self, figure_list: list, figs_dir: Path = None, chunk_size: int = FIG_CHUNK_SIZE
+    ):
         # Define the directory to store images
-        figs_dir = os.path.join(self.fig_retrieve_debug_dir, 'figs') if figs_dir is None else figs_dir
+        figs_dir = (
+            os.path.join(self.fig_retrieve_debug_dir, "figs")
+            if figs_dir is None
+            else figs_dir
+        )
 
         # Create the directory if it doesn't exist
         os.makedirs(figs_dir, exist_ok=True)
@@ -131,17 +159,17 @@ class FigRetriever(object):
                 response.raise_for_status()  # Raise an error for bad responses
 
                 # Define the path for saving the image
-                image_path = os.path.join(figs_dir, self.extract_fig_name(fig_link=one["figure_link"]))
+                image_path = os.path.join(
+                    figs_dir, self.extract_fig_name(fig_link=one["figure_link"])
+                )
 
                 # Write the content of the response (image) to a file
-                with open(image_path, 'wb') as fw:
+                with open(image_path, "wb") as fw:
                     for chunk in response.iter_content(chunk_size=chunk_size):
                         fw.write(chunk)
                     logger.info(f"Image {idx + 1} downloaded and saved to {image_path}")
                 image_paths.append(image_path)
 
             except requests.exceptions.RequestException as e:
-                logger.info(f'Failed to download {one["figure_link"]}: {e}')
+                logger.info(f"Failed to download {one['figure_link']}: {e}")
         return image_paths
-
-    

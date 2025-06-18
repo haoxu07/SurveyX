@@ -17,16 +17,16 @@ class LatexTextBuilder:
     def escape_latex(self, string):
         # Define LaTeX special characters and their escape sequences
         replacements = {
-            '\\': '\\textbackslash{}',
-            '{': '\\{',
-            '}': '\\}',
-            '%': '\\%',
-            '#': '\\#',
-            '$': '\\$',
-            '_': '\\_',
-            '&': '\\&',
-            '^': '\\textasciicircum{}',
-            '~': '\\textasciitilde{}'
+            "\\": "\\textbackslash{}",
+            "{": "\\{",
+            "}": "\\}",
+            "%": "\\%",
+            "#": "\\#",
+            "$": "\\$",
+            "_": "\\_",
+            "&": "\\&",
+            "^": "\\textasciicircum{}",
+            "~": "\\textasciitilde{}",
         }
         # Replace each special character with its LaTeX escape sequence
         for original, escape in replacements.items():
@@ -70,7 +70,13 @@ class LatexTextBuilder:
 SurveyX is an AI-powered system designed to automate the generation of surveys. While it aims to produce high-quality, coherent, and comprehensive surveys with accurate citations, the final output is derived from the AI's synthesis of pre-processed materials, which may contain limitations or inaccuracies. As such, the generated content should not be used for academic publication or formal submissions and must be independently reviewed and verified. The developers of SurveyX do not assume responsibility for any errors or consequences arising from the use of the generated surveys.
 """
 
-    def run(self, outlines_path: Union[str, Path], abstract_path: Union[str, Path], main_body_path: Union[str, Path], latex_save_path: Union[str, Path]):
+    def run(
+        self,
+        outlines_path: Union[str, Path],
+        abstract_path: Union[str, Path],
+        main_body_path: Union[str, Path],
+        latex_save_path: Union[str, Path],
+    ):
         """Conver mainbody to a standard latex paper format."""
 
         outlines = Outlines.from_saved(outlines_path)
@@ -87,7 +93,7 @@ SurveyX is an AI-powered system designed to automate the generation of surveys. 
         self.make_content(mainbody)
 
         self.make_reference()
-        
+
         self.make_disclaimer()
 
         self.tex += "\n \\end{document} \n"
@@ -99,16 +105,19 @@ SurveyX is an AI-powered system designed to automate the generation of surveys. 
 def main():
     task_id = "xxx"
 
-    ltb = LatexTextBuilder(init_tex_path = f"{BASE_DIR}/resources/latex/survey.ini.tex")
+    ltb = LatexTextBuilder(init_tex_path=f"{BASE_DIR}/resources/latex/survey.ini.tex")
     outlines_path = os.path.join("outputs", str(task_id), "outlines.json")
     abstract_path = os.path.join("outputs", str(task_id), "tmp", "abstract.tex")
     main_body_path = os.path.join("outputs", str(task_id), "tmp", "mainbody.tex")
     latex_save_path = os.path.join("outputs", str(task_id), "latex", "survey.tex")
 
-    ltb.run(outlines_path=outlines_path,
-            abstract_path=abstract_path,
-            main_body_path=main_body_path,
-            latex_save_path=latex_save_path)
+    ltb.run(
+        outlines_path=outlines_path,
+        abstract_path=abstract_path,
+        main_body_path=main_body_path,
+        latex_save_path=latex_save_path,
+    )
+
 
 # python -m src.modules.latex_handler.latex_text_builder
 if __name__ == "__main__":

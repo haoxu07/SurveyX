@@ -14,11 +14,15 @@ from src.models.monitor.token_monitor import TokenMonitor
 from src.modules.preprocessor.data_cleaner import DataCleaner
 from src.modules.preprocessor.paper_filter import PaperFilter
 from src.modules.preprocessor.paper_recaller import PaperRecaller
-from src.modules.preprocessor.utils import (ArgsNamespace, create_tmp_config,
-                                            parse_arguments_for_preprocessor,
-                                            save_papers)
+from src.modules.preprocessor.utils import (
+    ArgsNamespace,
+    create_tmp_config,
+    parse_arguments_for_preprocessor,
+    save_papers,
+)
 
 logger = get_logger("preprocessing.preprocessor")
+
 
 def single_preprocessing(args: ArgsNamespace) -> str:
     chat = ChatAgent()
@@ -33,11 +37,15 @@ def single_preprocessing(args: ArgsNamespace) -> str:
     time_monitor.start("retrieve paper")
 
     # 1. recall paper.
-    recaller = PaperRecaller(topic=topic, enable_cache=args.enable_cache, chat_agent=chat)
+    recaller = PaperRecaller(
+        topic=topic, enable_cache=args.enable_cache, chat_agent=chat
+    )
     recalled_papers = recaller.recall_papers_iterative(
         tmp_config["key_words"], args.page, args.time_s, args.time_e
     )
-    logger.info(f"================= totally {len(recalled_papers)} papers have been recalled ==================")
+    logger.info(
+        f"================= totally {len(recalled_papers)} papers have been recalled =================="
+    )
     time_monitor.end("retrieve paper")
 
     # 2. filter paper

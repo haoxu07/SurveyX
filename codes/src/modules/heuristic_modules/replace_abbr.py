@@ -7,32 +7,34 @@ class AbbrReplacer(object):
         self.first_occurrences = set()  # 记录首次出现需要例外处理的全称
         # 使用正则表达式匹配全称和缩写
         # 增加逻辑确保缩写字母数和全称中的单词数一致
-        self.pattern = re.compile(r'\s+\(([A-Z]+)\)')
-        self.punc_pattern = re.compile(r'[,.]\s*|\n')
+        self.pattern = re.compile(r"\s+\(([A-Z]+)\)")
+        self.punc_pattern = re.compile(r"[,.]\s*|\n")
 
     def find_abbr_pairs(self, content: str):
-        segs =  re.split(self.punc_pattern, content)
+        segs = re.split(self.punc_pattern, content)
         for one in segs:
             one = one.strip()
             if one == "":
                 continue
-            matches = re.finditer(self.pattern , one)
+            matches = re.finditer(self.pattern, one)
             for match in matches:
                 abbr = match.group(1)
                 pos = match.start()  # 缩写的起始位置
 
                 # abbr 需要为一个单词
-                if len(abbr.strip().split())>1:
+                if len(abbr.strip().split()) > 1:
                     continue
                 words_num = len(abbr)
 
                 # 统计全称的单词数
                 words = one[:pos].strip().split()[-words_num:]
 
-                full_name = ' '.join(words)
+                full_name = " ".join(words)
 
                 # 进一步检查缩写是否匹配这些单词的首字母
-                if all(word[0].upper() == abbr_char for word, abbr_char in zip(words, abbr)):
+                if all(
+                    word[0].upper() == abbr_char for word, abbr_char in zip(words, abbr)
+                ):
                     if full_name not in self._abbr_dict:
                         self._abbr_dict[full_name] = abbr
                         self.first_occurrences.add(full_name)  # 添加到首次出现的集合
@@ -55,10 +57,15 @@ class AbbrReplacer(object):
 
         # 文本处理：替换掉全称和全称(缩写)
         for full_name, abbr in self._abbr_dict.items():
-            full_name_pattern = r'\b(' + re.escape(full_name) + r')(\s+\(' + re.escape(abbr) + r'\))?'
-            content = re.sub(full_name_pattern, self.replace_full_name_with_abbr, content)
+            full_name_pattern = (
+                r"\b(" + re.escape(full_name) + r")(\s+\(" + re.escape(abbr) + r"\))?"
+            )
+            content = re.sub(
+                full_name_pattern, self.replace_full_name_with_abbr, content
+            )
 
         return content
+
 
 # 示例使用
 if __name__ == "__main__":

@@ -60,7 +60,7 @@ class TokenMonitor(Base):
                 output_price = self.pricing["default"]["output"]
             else:
                 input_price = self.pricing[model]["input"]
-                output_price = self.pricing[model]["output"]                
+                output_price = self.pricing[model]["output"]
 
             # 计算本次费用（保留4位小数）
             cost = round(
