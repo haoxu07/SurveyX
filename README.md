@@ -54,13 +54,11 @@ The open-source code in this repository only provides offline processing capabil
 1. **Real-time online search:** You can only generate surveys based on your own uploaded `.md` format references. The open-source version lacks access to our paper database, web crawler system, keyword expansion algorithms, and dual-layer semantic filtering for literature acquisition.
 2. **Multimodal document parsing:** The generated survey will not include image understanding or illustrations from the references.
 
-To experience the complete version, please visit: [https://surveyx.cn](https://surveyx.cn)
-
 ---
 
-## 🛠️ How to Use the Offline Open Source Version
+## 🛠️ How to Use the Offline Open Source Version (This repo)
 
-### Prerequisites
+### 1. Prerequisites
 
 - Python 3.10+ (Anaconda recommended)
 - All Python dependencies in `requirements.txt`
@@ -71,7 +69,7 @@ To experience the complete version, please visit: [https://surveyx.cn](https://s
 sudo apt update && sudo apt install texlive-full
 ```
 
-### Installation
+### 2. Installation
 
 1. Clone the repository:
 ```bash
@@ -84,7 +82,7 @@ cd SurveyX
 pip install -r requirements.txt
 ```
 
-### LLM Configuration
+### 3. LLM Configuration
 
 Edit `src/configs/config.py` to provide your LLM API URL, token, and model information before running the pipeline.
 
@@ -97,7 +95,7 @@ EMBED_REMOTE_URL = "https://api.siliconflow.cn/v1/embeddings"
 EMBED_TOKEN = "your embed token here"
 ```
 
-### Workflow
+### 4. Workflow
 
 
 Each run creates a unique result folder under `outputs/`, named by the task id `outputs/<task_id>` (e.g., `outputs/2025-06-18-0935_keyword/`).
@@ -118,7 +116,7 @@ python tasks/workflow/06_gen_latex.py --task_id $task_id
 
 **Note:** Your local reference documents **must be in Markdown (`.md`) format** and placed in a single directory.
 
-### Output
+### 5. Output
 
 - All results are saved under `outputs/<task_id>/`
   - `survey.pdf`: Final compiled survey
