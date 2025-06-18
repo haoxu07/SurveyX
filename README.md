@@ -2,7 +2,7 @@
 
 <p align="center">
   <i>
-✨Welcome to SurveyX! An automated academic survey generation engine, enabling you to generate a high-quality academic survey paper and quickly grasp a specific field in just one hour!📚
+✨Welcome to SurveyX! If you want to experience the full features, please log in to our website. This open-source code only provides offline processing capabilities.✨
   </i>
   <br>
   <a href="https://arxiv.org/abs/2502.14776">
@@ -28,8 +28,7 @@
   </a>
 </p>
 
-After a period of intense development, the first user interface version of **SurveyX** is now live! 🎉  
-We warmly invite you to try it out. Don't miss it! 🔥  
+Log in to the [SurveyX official website](https://www.surveyx.cn) to experience the full features!
 
 <div align="center">
     <strong><a>If you find our work helpful, don't forget to give us a star! ⭐️</a></strong>
@@ -39,42 +38,97 @@ We warmly invite you to try it out. Don't miss it! 🔥
 
 \[English | [中文](README_zh.md)\]
 
-## 📄How to use SurveyX?
-
-1. Visit **[SurveyX](https://www.surveyx.cn)** 🌐
-2. Sign up with your email 📧
-3. Submit your **topic** and **keywords** (the topic is the theme you wish to generate, and keywords are used for online retrieval) 🔍
-4. Then the magic begins! Sit back and relax while your personalized results are crafted; you'll be notified via email! 📬
-5. We value your voice, if you have any suggestions, feel free to share your thoughts with us. 📝 [问卷星](https://www.wjx.cn/vm/QNAHWs6.aspx)
-, [Goole Forms](https://forms.gle/m1tDKEu4ed7mN3dh7) or [our wechat group](assets/user_groups_123.jpg)!
-
 ## 🤔What is SurveyX?
 
 ![surveyx_frame](assets/SurveyX.png)
 
-**SurveyX** is an advanced academic survey automation system that leverages the power of Large Language Models (LLMs) to generate high-quality, domain-specific academic papers and surveys.🚀
+**SurveyX** is an advanced academic survey automation system that leverages the power of Large Language Models (LLMs) to generate high-quality, domain-specific academic papers and surveys. By simply providing a **paper title** and **keywords** for literature retrieval, users can request comprehensive academic papers or surveys tailored to specific topics.
 
-By simply providing a **paper title** and **keywords** for literature retrieval, users can request comprehensive academic papers or surveys tailored to specific topics.
+---
 
-## 📋 Features
+## 🆚 Full Version vs. Offline Open Source Version
 
-- User-friendly interface
-- Efficient survey management
-- Real-time data analysis
+The open-source code in this repository only provides offline processing capabilities. If you want to experience the full features, please log in to [our website](https://www.surveyx.cn).
 
-## 🛠️ Feedback
+**Missing features in the open-source version:**
+1. **Real-time online search:** You can only generate surveys based on your own uploaded `.md` format references. The open-source version lacks access to our paper database, web crawler system, keyword expansion algorithms, and dual-layer semantic filtering for literature acquisition.
+2. **Multimodal document parsing:** The generated survey will not include image understanding or illustrations from the references.
 
-We value your feedback! For any issues or suggestions, feel free to contact us. Thank you for your support! ❤️ Join our WeChat Angel User Group now! 🚀 Scan the QR code below to help shape the future with us! 💡
+To experience the complete version, please visit: [https://surveyx.cn](https://surveyx.cn)
 
-<div align="center">
-  <img src="assets/user_groups_123.jpg" alt="Wechat Group" width="300" />
-</div>
+---
 
-## 📝Generated Topics
+## 🛠️ How to Use the Offline Open Source Version
 
-![many_papers](assets/many_papers.png)
+### Prerequisites
 
-### Examples Papers
+- Python 3.10+ (Anaconda recommended)
+- All Python dependencies in `requirements.txt`
+- LaTeX environment (for PDF compilation):
+- You need to convert all your reference documents to Markdown (`.md`) format and put them together in a single folder before running the pipeline.
+
+```bash
+sudo apt update && sudo apt install texlive-full
+```
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/IAAR-Shanghai/SurveyX.git
+cd SurveyX
+```
+
+2. Install Python dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### LLM Configuration
+
+Edit `src/configs/config.py` to provide your LLM API URL, token, and model information before running the pipeline.
+
+Example:
+```python
+REMOTE_URL = "https://api.openai.com/v1/chat/completions"
+TOKEN = "sk-xxxx..."
+DEFAULT_EMBED_ONLINE_MODEL = "BAAI/bge-base-en-v1.5"
+EMBED_REMOTE_URL = "https://api.siliconflow.cn/v1/embeddings"
+EMBED_TOKEN = "your embed token here"
+```
+
+### Workflow
+
+
+Each run creates a unique result folder under `outputs/`, named by the task id `outputs/<task_id>` (e.g., `outputs/2025-06-18-0935_keyword/`).
+
+Run the full pipeline:
+```bash
+python tasks/offline_run.py --title "Your Survey Title" --key_words "keyword1, keyword2, ..." --ref_path "path/to/your/reference/dir"
+```
+
+Or run step by step:
+```bash
+export task_id="your_task_id"
+python tasks/workflow/03_gen_outlines.py --task_id $task_id
+python tasks/workflow/04_gen_content.py --task_id $task_id
+python tasks/workflow/05_post_refine.py --task_id $task_id
+python tasks/workflow/06_gen_latex.py --task_id $task_id
+```
+
+**Note:** Your local reference documents **must be in Markdown (`.md`) format** and placed in a single directory.
+
+### Output
+
+- All results are saved under `outputs/<task_id>/`
+  - `survey.pdf`: Final compiled survey
+  - `outlines.json`: Generated outline
+  - `latex/`: LaTeX sources
+  - `tmp/`: Intermediate files
+
+---
+
+## Example Papers
 
 | Title                                                        | Keywords                                                     |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -132,13 +186,13 @@ Please cite us if you find this project helpful for your project/paper:
 
 <hr style="border: 1px solid #ecf0f1;">
 
-## ⚠️ Note
+## ⚠️ Disclaimer
 
 - Our retrieval engine may not have access to many papers that require commercial licensing. If your research topic requires papers from sources other than arXiv, the quality and comprehensiveness of the generated papers may be affected due to limitations in our retrieval scope.
 - We currently only support the generation of English academic survey generation. Support for other languages is not available.
 - To ensure fair access for all users, each user is limited to one generation per day, prioritizing diverse user needs.
 
-## ⚠️Disclaimer
+For questions or issues, please open an issue on the repository.
 
 SurveyX uses advanced language models to assist with the generation of academic papers. However, it is important to note that the generated content is a tool for research assistance. Users should verify the accuracy of the generated papers, as SurveyX cannot guarantee full compliance with academic standards.
 
