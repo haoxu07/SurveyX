@@ -16,6 +16,7 @@ from src.models.LLM import EmbedAgent
 from src.models.LLM.utils import load_prompt
 from src.modules.preprocessor.data_cleaner import DataCleaner
 from src.modules.preprocessor.data_fetcher import DataFetcher
+from src.modules.preprocessor.data_fetcher_for_semantics import DataFetcherForSemantics
 from src.configs.config import DEFAULT_DATA_FETCHER_ENABLE_CACHE
 
 logger = get_logger("src.modules.preprocessor.PaperRecaller")
@@ -46,7 +47,12 @@ class PaperRecaller:
         self.iteration_limit = iteration_limit
         self.paper_pool_limit = paper_pool_limit
 
-        self.data_fetcher = DataFetcher(enable_cache=enable_cache)
+
+        self.data_fetcher = DataFetcherForSemantics(output_dir="paper_searches")
+        print("\n⚙️ Configuring retry settings with exponential backoff...")
+        self.data_fetcher.configure_retry_settings(max_retries=5, retry_delay=4.0)
+
+        #self.data_fetcher = DataFetcher(enable_cache=enable_cache)
         self.embed_agent = EmbedAgent()
         self.chat_agent = ChatAgent() if chat_agent is None else chat_agent
 
@@ -72,7 +78,7 @@ class PaperRecaller:
 
         Returns:
             List[Dict]: A list of paper dictionaries.
-        """
+            
         logger.debug(
             f"Searching papers on google: key word={keyword}, page={page}, time_s={time_s}, time_e={time_e}."
         )
@@ -86,6 +92,10 @@ class PaperRecaller:
             f"Total papers retrieved from google scholar & arxiv: {len(combined_papers)}"
         )
         return combined_papers
+        """
+        processed_papers = self.data_fetcher.search_by_keyword(keyword, 50)
+        return processed_papers['papers']
+
 
     def _clean_paper_pool(self, new_papers: List[Dict]):
         """
@@ -97,14 +107,14 @@ class PaperRecaller:
         logger.debug("Cleaning and deduplicating paper pool.")
 
         # Filter out papers
-        dc = DataCleaner(new_papers)
-        valid_papers = dc.quick_check()
-        logger.debug(f"Papers after filtering empty fields: {len(valid_papers)}")
+        #dc = DataCleaner(new_papers)
+        #valid_papers = dc.quick_check()
+        #logger.debug(f"Papers after filtering empty fields: {len(valid_papers)}")
 
         # Deduplicate based on _id
         existing_ids = {paper["_id"] for paper in self.paper_pool}
         unique_papers = [
-            paper for paper in valid_papers if paper["_id"] not in existing_ids
+            paper for paper in new_papers if paper["_id"] not in existing_ids
         ]
         logger.debug(f"Papers after deduplication: {len(unique_papers)}")
 
@@ -340,8 +350,10 @@ class PaperRecaller:
 
 
 # python -m src.modules.preprocessor.paper_recaller
+# python tasks/workflow/01_fetch_data.py --title "Software Profiling based on performance monitor unit: A Survey" --key_words "performance montioring unit, sampling based profiling, call path profiling, Precise event sampling" --page 5 --time_s 2017 --time_e 2024 --enable_cache True
+
 if __name__ == "__main__":
     pr = PaperRecaller()
     papers = pr.recall_papers_iterative(
-        "battery electrolyte formulation", "1", "2016", "2025"
+        "performance montioring unit, sampling based profiling, call path profiling, Precise event sampling", "1", "2016", "2025"
     )
